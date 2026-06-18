@@ -1,0 +1,104 @@
+{
+  "name": "pakteeth",
+  "version": "1.0.0",
+  "description": "PakTeeth Dental Clinic Management System",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "electron": "electron .",
+    "dist": "electron-builder --win --dir",
+    "dist:installer": "electron-builder --win --target nsis",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc:assignment": "node scripts/generate-assignment-docx.js",
+    "doc:bible": "node scripts/generate-project-bible-docx.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
+    "bonjour": "^3.5.1",
+    "cors": "^2.8.6",
+    "docx": "^9.6.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.3.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.5",
+    "pdfkit": "^0.18.0",
+    "socket.io": "^4.8.3",
+    "tree-kill": "^1.2.2",
+    "twilio": "^5.13.1"
+  },
+  "devDependencies": {
+    "electron": "^22.3.27",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.pakteeth.app",
+    "productName": "PakTeeth",
+    "copyright": "Copyright © 2026 PakTeeth",
+    "icon": "assets/icons/icon.ico",
+    "directories": {
+      "output": "PakTeeth",
+      "buildResources": "assets/icons"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "assets/icons/icon.ico"
+    },
+    "files": [
+      "electron/**",
+      "server/**",
+      "css/**",
+      "js/**",
+      "pages/**",
+      "assets/**",
+      "index.html",
+      "node_modules/**",
+      "!node_modules/.cache/**",
+      "!node_modules/electron/**",
+      "!node_modules/electron-builder/**"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/mongodb",
+        "to": "mongodb",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/data",
+        "to": "data",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/staff",
+        "to": "staff",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/patients",
+        "to": "patients",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  }
+}

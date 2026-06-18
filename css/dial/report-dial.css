@@ -1,0 +1,124 @@
+﻿/* ============================================================
+   REPORT ACTION HUD — HORIZONTAL EXPANSION
+   ============================================================ */
+
+.report-hud-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+}
+
+/* --- The Gear Trigger --- */
+.report-hud-trigger {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+    padding: 0;
+}
+
+.report-hud-trigger:hover {
+    border-color: #1a6b35;
+    color: #1a6b35;
+    background: #f8fdf8;
+    transform: rotate(45deg);
+}
+
+.report-hud-trigger.active {
+    background: #1a6b35;
+    color: #fff;
+    border-color: #1a6b35;
+    transform: rotate(90deg);
+}
+
+/* --- The Action Panel (Horizontal) --- */
+.report-hud-panel {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(39, 102, 186, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    transform: translateY(-50%) translateX(20px) scale(0.9);
+}
+
+.report-hud-panel.on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0) scale(1);
+}
+
+/* --- HUD Action Buttons --- */
+.report-btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    color: #64748b;
+    padding: 0;
+}
+
+.report-btn-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.report-btn-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Color Themed Icons --- */
+.report-btn-view:hover    { background: #f8fdf8; color: #3498db; }
+.report-btn-edit:hover    { background: #fff8eb; color: #f39c12; }
+.report-btn-compare:hover { background: #f5f0ff; color: #8e44ad; }
+.report-btn-delete:hover  { background: #fff5f5; color: #e74c3c; }
+
+/* Tooltip Labels */
+.report-btn-icon::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.report-btn-icon:hover::after {
+    opacity: 1;
+}

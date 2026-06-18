@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Procedure | PakTeeth</title>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/dental-chart.css">
+    <link rel="stylesheet" href="../../css/modals.css">
+</head>
+
+<body class="page-dim-reveal">
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" id="appTopNav">
+            <a href="../dashboard/dashboard.html" class="nav-brand">
+                <img src="../../assets/icons/64x64.png" style="width: 24px; height: 24px; margin-right: 8px;" alt="PakTeeth Logo">
+                PakTeeth
+            </a>
+            <div class="nav-menu">
+                <a href="../dashboard/dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="../patients/patient-dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Patients
+                </a>
+                <a href="../appointments/appointments.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    Appointments
+                </a>
+                <a href="../doctors/doctors.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Staff
+                </a>
+                <a href="../settings/settings.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-content">
+                        <a href="../analytics/analytics.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Analytics
+                        </a>
+                        <a href="../analytics/daily-report.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            Daily Report
+                        </a>
+                        <a href="../capital/capital-summary.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                            Capital
+                        </a>
+                        <a href="#" class="nav-item logout-item" onclick="APP.logout(); return false;" title="Logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" x2="9" y1="12" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-title">
+                    <button class="btn btn-icon" onclick="history.back()" title="Back">Back</button>
+                    <h2>Dental Procedure Chart</h2>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="saveTeethChart()">Save Chart</button>
+                </div>
+            </header>
+
+            <section class="page-content">
+                <!-- Dental Chart UI -->
+                <div class="dental-chart-container card" style="margin-top: 1rem;">
+                    <div class="chart-legend">
+                        <div class="legend-item"><span class="legend-color"
+                                style="background:var(--color-primary)"></span>Normal</div>
+                        <div class="legend-item"><span class="legend-color" style="background:#e74c3c"></span>Caries
+                        </div>
+                        <div class="legend-item"><span class="legend-color" style="background:#f1c40f"></span>Filling
+                        </div>
+                        <div class="legend-item"><span class="legend-color" style="background:#9b59b6"></span>Crown
+                        </div>
+                        <div class="legend-item"><span class="legend-color" style="background:#34495e"></span>Missing
+                        </div>
+                    </div>
+
+                    <div class="jaw-section upper-jaw" id="upperJaw">
+                        <div id="upperRightTeeth" class="teeth-row"></div>
+                        <div id="upperLeftTeeth" class="teeth-row"></div>
+                    </div>
+                    <div class="jaw-divider"></div>
+                    <div class="jaw-section lower-jaw" id="lowerJaw">
+                        <div id="lowerLeftTeeth" class="teeth-row"></div>
+                        <div id="lowerRightTeeth" class="teeth-row"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Condition Modal -->
+    <div id="conditionModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3>Tooth <span id="selectedToothNum"></span></h3>
+                <button class="modal-close" onclick="Modal.close('conditionModal')">✖</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom:10px;">Select Tooth Condition</p>
+                <div id="conditionSelector" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+                <small style="display:block; margin-top:10px; opacity:0.7;">
+                    Click a condition to apply it to the tooth
+                </small>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('conditionModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dental Chart Notes Modal -->
+    <div id="dentalChartNotesModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Dental Chart Notes</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="dentalChartNotesForm">
+                    <input type="hidden" id="notesPatientId">
+                    <div class="form-group">
+                        <label class="form-label">Tooth Number</label>
+                        <select id="toothNumber" class="form-control">
+                            <option value="">Select Tooth...</option>
+                            <!-- Upper Teeth -->
+                            <optgroup label="Upper Teeth">
+                                <option value="18">18 - Upper Right Wisdom</option>
+                                <option value="17">17 - Upper Right 2nd Molar</option>
+                                <option value="16">16 - Upper Right 1st Molar</option>
+                                <option value="15">15 - Upper Right 2nd Premolar</option>
+                                <option value="14">14 - Upper Right 1st Premolar</option>
+                                <option value="13">13 - Upper Right Canine</option>
+                                <option value="12">12 - Upper Right Lateral Incisor</option>
+                                <option value="11">11 - Upper Right Central Incisor</option>
+                                <option value="21">21 - Upper Left Central Incisor</option>
+                                <option value="22">22 - Upper Left Lateral Incisor</option>
+                                <option value="23">23 - Upper Left Canine</option>
+                                <option value="24">24 - Upper Left 1st Premolar</option>
+                                <option value="25">25 - Upper Left 2nd Premolar</option>
+                                <option value="26">26 - Upper Left 1st Molar</option>
+                                <option value="27">27 - Upper Left 2nd Molar</option>
+                                <option value="28">28 - Upper Left Wisdom</option>
+                            </optgroup>
+                            <!-- Lower Teeth -->
+                            <optgroup label="Lower Teeth">
+                                <option value="48">48 - Lower Right Wisdom</option>
+                                <option value="47">47 - Lower Right 2nd Molar</option>
+                                <option value="46">46 - Lower Right 1st Molar</option>
+                                <option value="45">45 - Lower Right 2nd Premolar</option>
+                                <option value="44">44 - Lower Right 1st Premolar</option>
+                                <option value="43">43 - Lower Right Canine</option>
+                                <option value="42">42 - Lower Right Lateral Incisor</option>
+                                <option value="41">41 - Lower Right Central Incisor</option>
+                                <option value="31">31 - Lower Left Central Incisor</option>
+                                <option value="32">32 - Lower Left Lateral Incisor</option>
+                                <option value="33">33 - Lower Left Canine</option>
+                                <option value="34">34 - Lower Left 1st Premolar</option>
+                                <option value="35">35 - Lower Left 2nd Premolar</option>
+                                <option value="36">36 - Lower Left 1st Molar</option>
+                                <option value="37">37 - Lower Left 2nd Molar</option>
+                                <option value="38">38 - Lower Left Wisdom</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Condition</label>
+                        <select id="toothCondition" class="form-control">
+                            <option value="">Select Condition...</option>
+                            <option value="normal">Normal</option>
+                            <option value="caries">Caries</option>
+                            <option value="filling">Filling</option>
+                            <option value="crown">Crown</option>
+                            <option value="bridge">Bridge</option>
+                            <option value="implant">Implant</option>
+                            <option value="extraction">Extraction</option>
+                            <option value="rootcanal">Root Canal</option>
+                            <option value="missing">Missing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea id="toothNotes" class="form-control" rows="3"
+                            placeholder="Detailed notes..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Treatment Required</label>
+                        <input type="text" id="treatmentRequired" class="form-control"
+                            placeholder="e.g., Filling, Crown, Extraction">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('dentalChartNotesModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveDentalChartNotes()">Save Notes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/core.js"></script>
+    <script src="../../js/patient-profile.js"></script>
+    <script src="../../js/dental-chart.js"></script>
+    <script>
+        // Preserve ?id= query param across tabs
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const patientId = params.get('id') || '';
+            const qs = patientId ? `?id=${patientId}` : '';
+
+            const tabs = {
+                'tab-overview': 'patient-profile.html',
+                'tab-dental': 'dental-chart.html',
+                'tab-appointments': 'appointments.html',
+                'tab-prescriptions': 'prescriptions.html',
+                'tab-billing': 'billing.html',
+                'tab-reports': 'reports.html'
+            };
+            for (const [id, url] of Object.entries(tabs)) {
+                const el = document.getElementById(id);
+                if (el) el.href = `${url}${qs}`;
+            }
+        })();
+    </script>
+    <script src="/js/license-guard.js"></script>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>
+</body>
+
+</html>

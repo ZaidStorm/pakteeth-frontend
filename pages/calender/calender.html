@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PakTeeth Calendar</title>
+    <link rel="stylesheet" href="../../css/calender.css">
+</head>
+
+<body>
+    <div class="calendar-wrapper">
+        <div class="calendar-controls">
+            <button id="prevBtn">&#10094;</button>
+            <h2 id="calendarTitle"></h2>
+            <button id="nextBtn">&#10095;</button>
+            <select id="viewSelect">
+                <option value="day">Day</option>
+                <option value="week">Week</option>
+                <option value="month" selected>Month</option>
+                <option value="year">Year</option>
+            </select>
+        </div>
+
+        <div id="calendarContent" class="calendar-content"></div>
+    </div>
+
+    <script src="../../js/calender.js"></script>
+    <script src="/js/license-guard.js"></script>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,449 @@
+﻿/* ============================================================
+   PATIENT CARD — PROFESSIONAL HUD STYLE (LIGHT THEME)
+   ============================================================ */
+
+/* ---------- Card shell ---------- */
+.patient-card-wrap {
+  position: relative;
+  width: 100%;
+  /* Spans grid column */
+  min-height: 280px;
+}
+
+.patient-card {
+  background: #f8fdf8;
+  /* Fallback */
+  border: 1px solid #c5d9c5;
+  border-radius: 18px;
+  padding: 0;
+  /* Let background SVG define space or overlay */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 380px;
+  min-height: 380px;
+  /* Matching the 280:360 ratio (560:720) */
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pc-content {
+  position: relative;
+  z-index: 2;
+  padding: 1.6rem 1.4rem 1.3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Top accent bar - potentially redundant with new SVG but kept for extra flare */
+.patient-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #1a6b35, #4caf50, transparent);
+  border-radius: 18px 18px 0 0;
+  z-index: 3;
+}
+
+/* Corner brackets */
+.pc-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: #1a6b35;
+  border-style: solid;
+  opacity: 0.3;
+}
+
+.pc-corner.tl {
+  top: 10px;
+  left: 10px;
+  border-width: 1.5px 0 0 1.5px;
+  border-radius: 3px 0 0 0;
+}
+
+.pc-corner.tr {
+  top: 10px;
+  right: 10px;
+  border-width: 1.5px 1.5px 0 0;
+  border-radius: 0 3px 0 0;
+}
+
+.pc-corner.bl {
+  bottom: 10px;
+  left: 10px;
+  border-width: 0 0 1.5px 1.5px;
+  border-radius: 0 0 0 3px;
+}
+
+.pc-corner.br {
+  bottom: 10px;
+  right: 10px;
+  border-width: 0 1.5px 1.5px 0;
+  border-radius: 0 0 3px 0;
+}
+
+/* ---------- Glass overlay (shown on HUD open) ---------- */
+.pc-glass {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  /* Stronger blur */
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+}
+
+.pc-glass.on {
+  opacity: 1;
+}
+
+/* Export Buttons */
+.export-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+  z-index: 5;
+}
+
+.exp-btn {
+  font-family: 'Inter', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.exp-btn.teal {
+  border-color: #0d9488;
+  color: #0d9488;
+}
+
+.exp-btn.teal:hover {
+  background: #d0faf6;
+  color: #0d9488;
+}
+
+.exp-btn.blue { border-color: #1a6b35; color: #1a6b35; }
+
+.exp-btn.blue:hover { background: #d5e8d4; color: #1a6b35; }
+
+/* ---------- Avatar ---------- */
+.pc-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid rgba(26, 107, 53, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  background: radial-gradient(circle at 35% 35%, #f8fdf8, #d5e8d4);
+  position: relative;
+  overflow: visible;
+}
+
+.pc-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.pc-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(26, 107, 53, 0.1);
+  border-top-color: #1a6b35;
+  animation: pc-spin 8s linear infinite;
+  z-index: 1;
+}
+
+@keyframes pc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pc-avatar-text {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a6b35;
+  z-index: 2;
+}
+
+/* ---------- Name & badge ---------- */
+.pc-name-container {
+  margin-bottom: 12px;
+}
+
+.pc-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+}
+
+.pc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  margin-top: 6px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.pc-badge.active {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.pc-badge.discontinued {
+  background: #fffbeb;
+  color: #a16207;
+  border-color: #fef3c7;
+}
+
+.pc-badge.died {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fee2e2;
+}
+
+.pc-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pc-blink 2s ease-in-out infinite;
+}
+
+.pc-badge.active .pc-badge-dot {
+  background: #15803d;
+}
+
+.pc-badge.discontinued .pc-badge-dot {
+  background: #a16207;
+}
+
+.pc-badge.died .pc-badge-dot {
+  background: #b91c1c;
+}
+
+@keyframes pc-blink {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Tags ---------- */
+.pc-tags {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0 15px;
+  flex-wrap: wrap;
+}
+
+.pc-tag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.pc-tag.pid {
+  color: #1a6b35;
+  background: #f0f7f0;
+  border-color: #b5d9b4;
+}
+
+.pc-tag.gender {
+  color: #be185d;
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.pc-tag.age {
+  color: #0d9488;
+  background: #f0fdfa;
+  border-color: #99f6e4;
+}
+
+/* Specific Info Row Colors */
+.pc-info-row.phone { color: #059669; }
+.pc-info-row.phone svg { color: #10b981; }
+
+.pc-info-row.reg-date { color: #475569; }
+.pc-info-row.reg-date svg { color: #64748b; }
+
+.pc-info-row.city { color: #7c3aed; }
+.pc-info-row.city svg { color: #8b5cf6; }
+
+/* ---------- Info rows ---------- */
+.pc-info-stack {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pc-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.pc-info-row svg {
+  width: 14px;
+  height: 14px;
+  color: #1a6b35;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+/* ---------- Divider ---------- */
+.pc-divider {
+  border: none;
+  height: 1px;
+  margin: 15px 0 12px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+}
+
+/* ---------- Gear button ---------- */
+.pc-gear {
+  width: 40px;
+  height: 40px;
+  margin: 15px auto 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 10;
+}
+
+.pc-gear:hover {
+  border-color: #1a6b35;
+  color: #1a6b35;
+  background: #f8fdf8;
+  transform: rotate(30deg);
+}
+
+.pc-gear.active {
+  background: #1a6b35;
+  border-color: #1a6b35;
+  color: white;
+  transform: rotate(90deg);
+  box-shadow: 0 4px 12px rgba(26, 107, 53, 0.3);
+}
+
+/* ---------- HUD action buttons ---------- */
+.pc-hud-btn {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition:
+    left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.pc-hud-btn.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-hud-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.pc-hud-btn:active {
+  transform: translate(-50%, -50%) scale(0.95) !important;
+}
+
+.pc-hud-btn.view {
+  border-color: rgba(26, 107, 53, 0.2);
+  color: #1a6b35;
+}
+
+.pc-hud-btn.edit {
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.pc-hud-btn.delete {
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}

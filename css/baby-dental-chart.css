@@ -1,0 +1,1193 @@
+body {
+  background: linear-gradient(135deg, #d5e8d4, #f8fdf8);
+  background-size: 200% 200%;
+  animation: bgMove 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes bgMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* =========================
+   GLOBAL & THEME
+========================= */
+:root {
+    --primary-color: #1a6b35;
+    --primary-light: #d5e8d4;
+    --primary-dark: #0d3d1f;
+    --secondary-color: #6c757d;
+    --accent-color: #4caf50;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #e74c3c;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.4);
+
+    --color-primary: var(--primary-color);
+    --color-bg: #f4f6f9;
+    --color-card: #ffffff;
+    --color-border: #e3e6ed;
+    --color-text: #344050;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, Roboto, Arial, sans-serif;
+}
+
+body {
+    color: var(--color-text);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.main-content {
+    padding: 1.5rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.page-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.page-content {
+    margin-top: 1rem;
+}
+
+.card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: #fff;
+    background: #64748b;
+    /* Default slate */
+    line-height: 1.2;
+    font-family: inherit;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #475569;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1a6b35, #1a6b35) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 14px rgba(26, 107, 53, 0.3) !important;
+}
+
+.btn-secondary {
+    background: #54c22c !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(84, 194, 44, 0.25) !important;
+}
+
+.btn-success {
+    background: #2ecc71 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25) !important;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.btn-outline {
+    background: transparent !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--gray-700) !important;
+}
+
+.btn-outline:hover {
+    background: var(--gray-100) !important;
+    border-color: var(--gray-300) !important;
+}
+
+/* =========================
+   TABS
+========================= */
+
+
+/* ========================
+   PROFILE HERO SECTION
+======================== */
+/* Profile hero styles removed (now global) */
+
+/* ========================
+   TABS & PANELS
+======================== */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--gray-600);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.tab:hover {
+    background: var(--gray-100);
+    color: var(--primary-color);
+}
+
+.tab.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 5px 15px rgba(26, 107, 53, 0.3);
+}
+
+
+/* =========================
+   DENTAL CHART
+========================= */
+
+.dental-chart-container {
+    text-align: center;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    gap: 6px;
+}
+
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+/* =========================
+   JAW LAYOUT
+========================= */
+
+.jaw-section {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 10px;
+}
+
+.teeth-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* divider between jaws */
+
+.jaw-divider {
+    height: 30px;
+}
+
+/* =========================
+   TOOTH STYLE
+========================= */
+
+.tooth {
+    width: 38px;
+    height: 45px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px 10px 6px 6px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+/* Tooth icon */
+
+.tooth::before {
+    content: "??";
+    font-size: 20px;
+}
+
+/* Hover */
+
+.tooth:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Selected */
+
+.tooth.selected {
+    outline: 3px solid var(--color-primary);
+}
+
+/* =========================
+   CONDITION COLORS
+========================= */
+
+.tooth.healthy {
+    background: #e8f5e9;
+    border-color: #4caf50;
+}
+
+.tooth.cavity {
+    background: #ffebee;
+    border-color: #f44336;
+}
+
+.tooth.filling {
+    background: #e8f5e9;
+    border-color: #1a6b35;
+}
+
+.tooth.extraction {
+    background: #f3e5f5;
+    border-color: #9c27b0;
+}
+
+.tooth.root {
+    background: #fff3e0;
+    border-color: #ff9800;
+}
+
+.tooth.crown {
+    background: #eceff1;
+    border-color: #607d8b;
+}
+
+.tooth.implant {
+    background: #fffde7;
+    border-color: #fbc02d;
+}
+
+.tooth.sealant {
+    background: #f1f8e9;
+    border-color: #689f38;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-responsive {
+    overflow: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 14px;
+    text-align: left;
+}
+
+.data-table th {
+    background: #f8f9fb;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.tooth-number {
+    position: absolute;
+    bottom: -14px;
+    font-size: 10px;
+    color: #666;
+}
+
+
+/* ========================
+   MAIN CONTAINER
+======================== */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ========================
+   TOP NAVIGATION
+======================== */
+/* ========================
+   TOP NAVIGATION
+======================== */
+.top-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1a6b35;
+    padding: 12px 25px;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.nav-item {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    min-width: 160px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    flex-direction: column;
+    z-index: 200;
+}
+
+.nav-dropdown.active .nav-dropdown-content {
+    display: flex;
+}
+
+.nav-dropdown-content .nav-item {
+    color: #1a6b35;
+    padding: 10px 15px;
+}
+
+.nav-dropdown-content .nav-item:hover {
+    background: #f0f7f0;
+}
+
+
+/* ========================
+   PAGE HEADER
+======================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px 15px;
+    flex-wrap: wrap;
+}
+
+.header-title h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.kpi-toggle button {
+    background: linear-gradient(135deg, #1a6b35, #4caf50);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* Header actions use global btn-danger */
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:900px) {
+
+    .teeth-row {
+        gap: 6px;
+    }
+
+    .tooth {
+        width: 32px;
+        height: 38px;
+    }
+
+}
+
+/* =============================================
+   DC WORKSPACE — 2 Panel Layout
+============================================= */
+.dc-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* =============================================
+   CHART PANEL
+============================================= */
+.dc-chart-panel {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.dc-chart-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.full-mouth-check,
+.single-unit-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--gray-700);
+}
+
+.full-mouth-check input,
+.single-unit-check input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.selected-tooth-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    background: #f4f6f9;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* =============================================
+   FDI CHART
+============================================= */
+.fdi-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0.5rem 0;
+}
+
+.jaw-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 2px 0;
+}
+
+.jaw-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.upper-jaw-row {
+    align-items: flex-end;
+}
+
+.lower-jaw-row {
+    align-items: flex-start;
+}
+
+/* ===== BABY TREATMENT CONDITIONS (Professional Palette) ===== */
+
+/* ===== PRIMARY SET (1–12) ===== */
+.tooth-btn.B101 { background: #e8f1fb; border-color: #2f6fb3; } /* Blue */
+.tooth-btn.B102 { background: #eceffd; border-color: #4b5fc7; } /* Indigo */
+.tooth-btn.B110 { background: #f5ecfb; border-color: #8b5fbf; } /* Violet */
+.tooth-btn.B115 { background: #f8eafa; border-color: #a23bb5; } /* Purple */
+.tooth-btn.B120 { background: #e8f6f4; border-color: #1f9d8f; } /* Teal */
+.tooth-btn.B125 { background: #eaf7f0; border-color: #2e8b57; } /* Green */
+.tooth-btn.B130 { background: #fff2e8; border-color: #d9772b; } /* Orange */
+.tooth-btn.B135 { background: #fdf6db; border-color: #c89b1d; } /* Amber */
+.tooth-btn.B140 { background: #edf8f1; border-color: #3fa66b; } /* Mint */
+.tooth-btn.B145 { background: #eef7fb; border-color: #3b82a6; } /* Sky */
+.tooth-btn.B150 { background: #f3ecfb; border-color: #9a6edb; } /* Lavender */
+.tooth-btn.B160 { background: #f1f5f9; border-color: #6b7c8f; } /* Neutral */
+
+
+/* ===== SECONDARY SET (13–24) ===== */
+.tooth-btn.B201 { background: #d5e8d4; border-color: #1d4ed8; } /* Deep Blue */
+.tooth-btn.B202 { background: #e0e7ff; border-color: #4338ca; } /* Deep Indigo */
+.tooth-btn.B210 { background: #ede9fe; border-color: #7c3aed; } /* Deep Violet */
+.tooth-btn.B215 { background: #f5d0fe; border-color: #a21caf; } /* Deep Purple */
+.tooth-btn.B220 { background: #ccfbf1; border-color: #0f766e; } /* Deep Teal */
+.tooth-btn.B225 { background: #dcfce7; border-color: #15803d; } /* Deep Green */
+.tooth-btn.B230 { background: #ffedd5; border-color: #c2410c; } /* Deep Orange */
+.tooth-btn.B235 { background: #fef3c7; border-color: #a16207; } /* Deep Amber */
+.tooth-btn.B240 { background: #d1fae5; border-color: #047857; } /* Deep Mint */
+.tooth-btn.B245 { background: #d5e8d4; border-color: #1a6b35; } /* Deep Sky */
+.tooth-btn.B250 { background: #ede9fe; border-color: #6d28d9; } /* Deep Lavender */
+.tooth-btn.B260 { background: #e2e8f0; border-color: #475569; } /* Deep Neutral */
+
+.tooth-btn.OTH  { background: #f8fafc; border-color: #94a3b8; } /* Others */
+
+/* Treatment Card Bottom Color Bar */
+.treatment-card-color-line {
+    height: 5px;
+    border-radius: 0 0 6px 6px;
+    margin: 6px -8px -8px -8px;
+}
+
+.quadrant {
+    display: flex;
+    gap: 3px;
+}
+
+.jaw-midline {
+    width: 2px;
+    height: 50px;
+    background: #dee2e6;
+    border-radius: 2px;
+    align-self: center;
+}
+
+.jaw-gap {
+    height: 8px;
+    width: 100%;
+    border-top: 2px dashed #dee2e6;
+    border-bottom: 2px dashed #dee2e6;
+    margin: 4px 0;
+}
+
+/* Tooth wrapper */
+.tooth-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Tooth button */
+.tooth-btn {
+    width: 34px;
+    height: 44px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 8px 8px 5px 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.tooth-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 3px 8px rgba(26, 107, 53, 0.2);
+    transform: translateY(-2px);
+}
+
+.tooth-btn.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-light, #d5e8d4);
+    box-shadow: 0 0 0 3px rgba(39, 102, 186, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Tooth icon drawings */
+.tooth-icon {
+    width: 20px;
+    height: 30px;
+    position: relative;
+}
+
+.tooth-icon.upper {
+    background: linear-gradient(180deg, #f5f0e8 0%, #e8d8b8 60%, #c8a878 100%);
+    border-radius: 4px 4px 8px 8px;
+    border: 1px solid #c8a878;
+}
+
+.tooth-icon.upper.molar {
+    width: 24px;
+    border-radius: 3px 3px 6px 6px;
+    background: linear-gradient(180deg, #f0ebe0 0%, #e0cba8 60%, #c0a070 100%);
+}
+
+.tooth-icon.lower {
+    background: linear-gradient(0deg, #f5f0e8 0%, #e8d8b8 60%, #c8a878 100%);
+    border-radius: 8px 8px 4px 4px;
+    border: 1px solid #c8a878;
+}
+
+.tooth-icon.lower.molar {
+    width: 24px;
+    border-radius: 6px 6px 3px 3px;
+    background: linear-gradient(0deg, #f0ebe0 0%, #e0cba8 60%, #c0a070 100%);
+}
+
+/* Tooth number label */
+.tooth-num-label {
+    font-size: 10px;
+    color: #888;
+    font-weight: 500;
+    line-height: 1;
+}
+
+/* =============================================
+   SURFACE SELECTOR
+============================================= */
+.surface-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: #f8f9fb;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    flex-wrap: wrap;
+}
+
+.surface-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+}
+
+.surface-btns {
+    display: flex;
+    gap: 5px;
+}
+
+.surface-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.surface-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.surface-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* =============================================
+   TREATMENT PANEL
+============================================= */
+.dc-treatment-panel {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 300px;
+}
+
+.treatment-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.treatment-panel-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.treatment-tabs {
+    display: flex;
+    gap: 6px;
+}
+
+.treatment-tab-btn {
+    padding: 5px 16px;
+    border: 1px solid #dee2e6;
+    background: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--gray-600);
+    transition: all 0.2s;
+}
+
+.treatment-tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.treatment-tab-btn:hover:not(.active) {
+    background: #f0f4ff;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* =============================================
+   TREATMENT GRID
+============================================= */
+.treatment-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.treatment-loading {
+    padding: 20px;
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+}
+
+.treatment-card {
+    position: relative;
+    width: 80px;
+    min-height: 88px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 4px;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.treatment-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 3px 12px rgba(26, 107, 53, 0.2);
+    transform: translateY(-2px);
+}
+
+.treatment-card.active {
+    border-color: var(--primary-color);
+    background: #e8f0fe;
+    box-shadow: 0 0 0 3px rgba(26, 107, 53, 0.2);
+}
+
+.tc-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.tc-code {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 0.2px;
+}
+
+.tc-name {
+    font-size: 9px;
+    color: var(--gray-600);
+    line-height: 1.2;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+.tc-fav-btn {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.tc-fav-btn.faved {
+    color: #f4b400;
+}
+
+/* =============================================
+   FEE MODAL EXTRAS
+============================================= */
+.fee-info-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.fee-info-chip {
+    background: #f0f4ff;
+    color: var(--primary-color);
+    border: 1px solid #c5d7ff;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.fee-info-chip.treatment-chip {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-color: #a5d6a7;
+}
+
+/* =============================================
+   PROCEDURE HISTORY TABLE
+============================================= */
+.procedure-history-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.procedure-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #f8f9fb;
+    border-bottom: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.procedure-header-right {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-success {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #1b5e20;
+}
+
+.btn-outline {
+    background: white;
+    border: 1px solid #ccc;
+    color: var(--gray-700);
+}
+
+.btn-outline:hover {
+    background: #f0f4ff;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.procedure-table {
+    font-size: 13px;
+}
+
+.procedure-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    padding: 10px 8px;
+    color: var(--gray-600);
+    background: #f8f9fb;
+}
+
+.procedure-table td {
+    padding: 8px;
+    vertical-align: top;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.teeth-cell {
+    font-weight: 600;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.num-cell {
+    text-align: right;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.payable-cell {
+    font-weight: 600;
+    color: #c62828;
+}
+
+.notes-cell {
+    max-width: 180px;
+    font-size: 11px;
+    color: var(--gray-600);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.editable-cell {
+    outline: none;
+    min-width: 60px;
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+.editable-cell:focus {
+    background: #fff8e1;
+    outline: 1px solid #f4b400;
+}
+
+/* Row states */
+.row-pending {
+    background: #fffde7;
+}
+
+/* Delete button */
+.delete-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #e53935;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    padding: 2px;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.badge-completed {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-pending {
+    background: #fff8e1;
+    color: #f57f17;
+    border: 1px solid #ffe082;
+}
+
+.badge-cancelled {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* =============================================
+   BILLING TOTALS ROW
+============================================= */
+.billing-totals-row {
+    background: #e8f5e9;
+    font-weight: 700;
+}
+
+.billing-totals-row td {
+    padding: 10px 8px;
+    font-size: 14px;
+    border-top: 2px solid #90caf9;
+}
+
+.totals-label {
+    text-align: right;
+    color: var(--gray-700);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.billing-totals-row .num-cell {
+    color: var(--primary-color);
+}
+
+.billing-totals-row .payable-cell {
+    color: #1a6b35;
+    font-size: 15px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1024px) {
+    .dc-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .fdi-chart {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .tooth-btn {
+        width: 26px;
+        height: 36px;
+    }
+
+    .tooth-icon {
+        width: 14px;
+        height: 22px;
+    }
+
+    .tooth-icon.molar {
+        width: 16px;
+    }
+
+    .quadrant {
+        gap: 2px;
+    }
+}

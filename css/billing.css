@@ -1,0 +1,428 @@
+/* ========================
+   GLOBAL RESET & THEME
+======================== */
+:root {
+  --primary-color: #1a6b35;
+  --primary-light: #d5e8d4;
+  --primary-dark: #0d3d1f;
+  --secondary-color: #6c757d;
+  --accent-color: #4caf50;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --danger-color: #e74c3c;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #d5e8d4, #f8fdf8);
+  background-size: 200% 200%;
+  animation: bgMove 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes bgMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========================
+   MAIN CONTAINER
+======================== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ========================
+   TOP NAVIGATION
+======================== */
+.top-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1a6b35;
+  padding: 12px 25px;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: white;
+  min-width: 160px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  flex-direction: column;
+  z-index: 200;
+}
+
+.nav-dropdown.active .nav-dropdown-content {
+  display: flex;
+}
+
+.nav-dropdown-content .nav-item {
+  color: #1a6b35;
+  padding: 10px 15px;
+}
+
+.nav-dropdown-content .nav-item:hover {
+  background: #f0f7f0;
+}
+
+
+/* ========================
+   PROFILE HERO SECTION
+======================== */
+/* Profile hero styles removed (now global) */
+
+/* ========================
+   TABS & PANELS
+======================== */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--gray-600);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.tab:hover {
+  background: var(--gray-100);
+  color: var(--primary-color);
+}
+
+
+
+.tab.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 5px 15px rgba(26, 107, 53, 0.3);
+}
+
+
+/* ========================
+   PAGE HEADER
+======================== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 15px;
+  flex-wrap: wrap;
+}
+
+.header-title h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.kpi-toggle button {
+  background: linear-gradient(135deg, #1a6b35, #4caf50);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Header actions use global btn-danger */
+
+/* ========================
+   KPI GRID
+======================== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  padding: 0 30px;
+  margin-bottom: 25px;
+}
+
+.kpi-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 20px 18px;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+}
+
+.kpi-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555555da;
+  margin-bottom: 12px;
+}
+
+.kpi-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d3d1f;
+}
+
+/* Specialized Financial Cards Spicing - Unified Theme */
+/* Specialized Financial Cards Spicing - Vibrant UI */
+.financial-overview .kpi-card {
+  border-radius: 24px;
+  padding: 24px 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.financial-overview .kpi-card:nth-child(1) {
+    background: linear-gradient(135deg, #2563eb, #60a5fa); /* Revenue Blue */
+}
+
+.financial-overview .kpi-card:nth-child(2) {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24); /* Outstanding Amber */
+}
+
+.financial-overview .kpi-card:nth-child(3) {
+    background: linear-gradient(135deg, #10b981, #34d399); /* Credit Green */
+}
+
+.financial-overview .kpi-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.financial-overview .kpi-card .kpi-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.financial-overview .kpi-card .kpi-value {
+  color: #ffffff !important;
+  font-size: 28px;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-protected .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.899);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a6b353e;
+
+  backdrop-filter: blur(5px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  border-radius: 0;
+}
+
+.kpi-warning {
+  border-left: 4px solid #ff9800;
+}
+
+/* ========================
+   DASHBOARD SPLIT / TABLE CARDS
+======================== */
+.dashboard-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0 30px 30px;
+}
+
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+}
+
+.table-responsive {
+  overflow-x: auto;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background: rgba(255,255,255,0.9);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-weight: 600;
+}
+
+table tr:hover {
+  background: rgba(76, 175, 80, 0.08);
+}
+
+.patients-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.patients-controls input {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.patients-controls button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Button classes are now global */
+
+/* ========================
+   FOOTER
+======================== */
+.site-footer {
+  font-size: 20px;
+  color: #e2eaea;
+  text-align: center;
+  padding: 15px 10px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin-top: 20px;
+  background: #0d3d1f;
+  border-radius: 0 0 40px 0;
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 900px) {
+  .kpi-grid, .dashboard-split {
+    grid-template-columns: 1fr;
+  }
+  
+  .patients-controls {
+    flex-direction: column;
+  }
+  
+  .nav-menu {
+    display: none;
+  }
+}
+

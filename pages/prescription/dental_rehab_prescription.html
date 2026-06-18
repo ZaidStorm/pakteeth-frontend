@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Rehab – Prescription App</title>
+  <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green-dark: #0d3d1f;
+      --green-mid: #1a6b35;
+      --green-light: #4caf50;
+      --gold: #b8922a;
+      --gold-light: #d4a843;
+      --cream: #fdf9f0;
+      --paper: #ffffff;
+    }
+
+    body {
+      background: #e9ede6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 32px 16px;
+      font-family: 'Source Serif 4', serif;
+    }
+
+    /* Top Nav Bar for App Actions (non-printable) */
+    .app-toolbar {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: var(--green-mid);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #e9ede6;
+      color: #333;
+    }
+
+    /* The main table structure */
+    .prescription-wrapper {
+      background: var(--paper);
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 4px 40px rgba(13, 61, 31, 0.22);
+      border-radius: 3px;
+    }
+
+    .prescription-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      padding: 18px 28px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-text .clinic-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text .tagline {
+      font-size: 10.5px;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    .doctor-header select {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      padding: 2px;
+      outline: none;
+    }
+
+    .doctor-header select option {
+      color: #333;
+      font-family: sans-serif;
+      font-size: 14px;
+    }
+
+    /* PATIENT BAR */
+    .patient-bar {
+      border-bottom: 3px solid var(--green-dark);
+      padding: 10px 28px;
+      display: flex;
+      gap: 32px;
+      background: var(--cream);
+    }
+
+    .patient-field {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .patient-field label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      white-space: nowrap;
+    }
+
+    .patient-field input,
+    .patient-field select {
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid #aaa;
+      background: transparent;
+      font-family: 'Source Serif 4', serif;
+      font-size: 14px;
+      color: #222;
+      padding: 2px 4px;
+      outline: none;
+    }
+
+    /* VITALS BAR */
+    .vitals-bar {
+      border-bottom: 2px solid var(--green-mid);
+      padding: 6px 28px;
+      display: flex;
+      gap: 16px;
+      background: #f4f7f4;
+      justify-content: space-between;
+    }
+
+    .vital-field {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .vital-field label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      white-space: nowrap;
+    }
+
+    .vital-field input {
+      width: 50px;
+      border: none;
+      border-bottom: 1px dotted #aaa;
+      background: transparent;
+      font-family: 'Source Serif 4', serif;
+      font-size: 12px;
+      color: #222;
+      padding: 1px 2px;
+      outline: none;
+      text-align: center;
+    }
+
+    /* BODY */
+    .body {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+    }
+
+    .left-col {
+      border-right: 2px solid var(--green-dark);
+    }
+
+    .section-row {
+      border-bottom: 1px solid #d5e8d4;
+      padding: 18px 16px;
+    }
+
+    .section-row:last-child {
+      border-bottom: none;
+    }
+
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--green-dark);
+    }
+
+    .section-textarea {
+      width: 100%;
+      min-height: 30px;
+      border: none;
+      resize: none;
+      overflow-y: hidden;
+      font-family: 'Source Serif 4', serif;
+      font-size: 13px;
+      color: #222;
+      background: transparent;
+      outline: none;
+      margin-top: 6px;
+      line-height: 1.2;
+    }
+
+    .right-col {
+      padding: 16px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      background: #f8fdf8;
+    }
+
+    .rx-block {
+      flex: 1;
+    }
+
+    .rx-symbol {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      display: inline-block;
+      text-shadow: 1px 1px 0 rgba(13, 61, 31, 0.15);
+    }
+
+    .rx-symbol sup {
+      font-size: 18px;
+      font-weight: 700;
+      vertical-align: super;
+      position: relative;
+      top: -4px;
+      color: var(--green-dark);
+    }
+
+    .rx-block h3 {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .rx-textarea {
+      width: 100%;
+      min-height: 40px;
+      border: none;
+      border-bottom: 1px dashed #a5c8a5;
+      resize: none;
+      overflow-y: hidden;
+      font-family: 'Source Serif 4', serif;
+      font-size: 14px;
+      color: #222;
+      background: transparent;
+      outline: none;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* DOCTORS */
+    .doctors-section {
+      background: var(--cream);
+      padding: 20px 28px;
+      border-top: 3px solid var(--green-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 32px;
+    }
+
+    .doctor-card .doc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 4px;
+    }
+
+    .doctor-card .doc-credentials {
+      font-size: 11.5px;
+      color: #444;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      border-top: 3px solid var(--gold);
+      padding: 13px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer .address,
+    .footer .contact {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    .footer .address span {
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 300;
+    }
+
+    .footer .contact .nums p {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.55;
+      text-align: right;
+      color: var(--gold-light);
+    }
+
+    /* Dynamic Modules CSS */
+    .d-badge {
+      display: inline-block;
+      background: #e9ede6;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 10px;
+      color: var(--green-dark);
+      margin-right: 4px;
+      margin-top: 6px;
+      cursor: pointer;
+      font-family: sans-serif;
+    }
+
+    .d-badge:hover {
+      background: #d5e8d4;
+    }
+
+    .q-chip {
+      background: #e9ede6;
+      border: 1px solid #d5e8d4;
+      border-radius: 12px;
+      padding: 3px 8px;
+      font-size: 10px;
+      color: var(--green-dark);
+      cursor: pointer;
+      font-family: sans-serif;
+    }
+
+    .q-chip:hover {
+      background: #d5e8d4;
+    }
+
+    .rx-med-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      align-items: flex-end;
+    }
+
+    .rx-med-row input {
+      flex: 1;
+      border: none;
+      border-bottom: 1px dashed #a5c8a5;
+      font-family: 'Source Serif 4', serif;
+      font-size: 14px;
+      color: #222;
+      background: transparent;
+      outline: none;
+      padding: 2px 0;
+    }
+
+    .btn-remove-med {
+      background: none;
+      border: none;
+      color: #d9534f;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+
+      .app-toolbar {
+        display: none;
+      }
+
+      .prescription-wrapper {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      .q-chip,
+      .d-badge,
+      .btn-remove-med,
+      .btn-add-med {
+        display: none !important;
+      }
+
+      .doctor-header select {
+        border: none;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-toolbar">
+    <button class="btn btn-secondary" onclick="window.history.back()">← Back</button>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-secondary" onclick="savePrescription('draft')">Save as Draft</button>
+      <button class="btn btn-primary" onclick="savePrescription('locked')">Lock & Print</button>
+    </div>
+  </div>
+
+  <div class="prescription-wrapper">
+    <table class="prescription-table">
+      <thead>
+        <tr>
+          <td>
+            <div class="header">
+              <div class="brand">
+                <img src="../../assets/icons/1024x1024.png" style="width: 24px; height: 24px; margin-right: 8px;"
+                  alt="PakTeeth Logo">
+                <div class="brand-text">
+                  <div class="clinic-name">PakTeeth</div>
+                  <div class="tagline">ex-Dental Rehab</div>
+                </div>
+              </div>
+              <div class="doctor-header">
+                <select id="rx_doctor" required>
+                  <option value="">Select Doctor...</option>
+                </select>
+                <div class="assoc">&amp; Associates</div>
+              </div>
+            </div>
+
+            <div class="patient-bar">
+              <div class="patient-field">
+                <label>Name</label>
+                <select id="rx_patientId" style="display:none;" onchange="handlePatientChange()"></select>
+                <input type="text" id="patientNameDisplay" placeholder="Patient name" readonly />
+              </div>
+              <div class="patient-field" style="flex:0.6">
+                <label>Age/Gen</label>
+                <input type="text" id="patientAgeGender" readonly />
+              </div>
+              <div class="patient-field" style="flex:0.5">
+                <label>Date</label>
+                <input type="date" id="rx_date" />
+              </div>
+            </div>
+
+            <div class="vitals-bar">
+              <div class="vital-field"><label>BP</label><input type="text" id="v_bp" placeholder="___/___" /></div>
+              <div class="vital-field"><label>Pulse</label><input type="text" id="v_pulse" placeholder="___" /></div>
+              <div class="vital-field"><label>Temp</label><input type="text" id="v_temp" placeholder="___" /></div>
+              <div class="vital-field"><label>RR</label><input type="text" id="v_rr" placeholder="___" /></div>
+              <div class="vital-field"><label>SpO2</label><input type="text" id="v_spo2" placeholder="___" /></div>
+              <div class="vital-field"><label>Wt</label><input type="text" id="v_weight" placeholder="___" /></div>
+            </div>
+          </td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <div class="body">
+              <div class="left-col">
+                <div class="section-row">
+                  <div class="section-label">Chief Complaint</div>
+                  <textarea class="section-textarea" id="f_chief_complaint" placeholder="Enter here…"></textarea>
+                </div>
+                <div class="section-row">
+                  <div class="section-label">Relevant Medical History</div>
+                  <textarea class="section-textarea" id="f_med_history" placeholder="Enter here…"></textarea>
+                </div>
+                <div class="section-row">
+                  <div class="section-label">Current Meds &amp; Allergies</div>
+                  <textarea class="section-textarea" id="rx_allergies" placeholder="Enter here…"></textarea>
+                </div>
+                <div class="section-row">
+                  <div class="section-label">Investigation</div>
+                  <textarea class="section-textarea" id="f_investigation" placeholder="Enter here…"></textarea>
+                </div>
+              </div>
+
+              <div class="right-col">
+                <div class="rx-block">
+                  <div class="rx-symbol">D<sup>x</sup></div>
+                  <h3>Diagnosis</h3>
+                  <textarea class="rx-textarea" id="rx_diagnosis" placeholder="Write diagnosis here…"></textarea>
+                  <div class="diagnosis-badges">
+                    <span class="d-badge" onclick="setDiagnosis('Dental Caries')">Dental Caries</span>
+                    <span class="d-badge" onclick="setDiagnosis('Gingivitis')">Gingivitis</span>
+                    <span class="d-badge" onclick="setDiagnosis('Periodontitis')">Periodontitis</span>
+                    <span class="d-badge" onclick="setDiagnosis('Root Canal')">Root Canal</span>
+                    <span class="d-badge" onclick="setDiagnosis('Tooth Extraction')">Extraction</span>
+                  </div>
+                </div>
+                <div class="rx-block">
+                  <div class="rx-symbol">T<sup>x</sup></div>
+                  <h3>Treatment Done Today</h3>
+                  <textarea class="rx-textarea" id="f_treatment_done" placeholder="Treatment done today…"></textarea>
+                </div>
+                <div class="rx-block">
+                  <div class="rx-symbol">P<sup>x</sup></div>
+                  <h3>Treatment Plan (Future)</h3>
+                  <textarea class="rx-textarea" id="f_treatment_plan" placeholder="Future treatment plan…"></textarea>
+                </div>
+                <div class="rx-block">
+                  <div class="rx-symbol">R<sup>x</sup></div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 2px;">
+                    <h3>Prescription</h3>
+                    <span
+                      style="font-size: 9px; color: #777; font-weight: 300; letter-spacing: 0.5px; font-family: sans-serif;">Name
+                      — Dosage — Freq — Duration</span>
+                  </div>
+                  <div id="quickAddContainer" style="margin: 8px 0; display: flex; flex-wrap: wrap; gap: 4px;"></div>
+
+                  <div id="medicinesContainer"></div>
+
+                  <button type="button" class="btn-add-med" onclick="addMedicineRow()"
+                    style="margin-top:10px; background:transparent; border:1px dashed var(--green-mid); color:var(--green-mid); padding:4px 8px; font-size:12px; cursor:pointer; font-family: sans-serif;">+
+                    Add Medicine</button>
+                </div>
+
+                <div class="follow-up-block"
+                  style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #d5e8d4; display: flex; align-items: flex-end; gap: 8px;">
+                  <h3
+                    style="font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--green-dark); margin: 0; font-weight: 600;">
+                    Follow-up Date:</h3>
+                  <input type="date" id="f_follow_up"
+                    style="border:none; border-bottom: 1px solid #aaa; background: transparent; font-family: 'Source Serif 4', serif; font-size: 14px; outline:none; padding: 2px 4px; flex: 1; color: #222;" />
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <div class="doctors-section">
+              <div class="doctor-card">
+                <div class="doc-name">Dr M Ahmad Gulzar</div>
+                <div class="doc-credentials">
+                  CEO (PakTeeth | ex-Dental Rehab)<br>BDS, FCPS(II) (PAK)<br>
+                  Oral &amp; Maxillofacial Surgeon<br>Oral Implantologist (Oman)
+                </div>
+              </div>
+              <div class="doctor-card">
+                <div class="doc-name">Dr Wajeeha Ch.</div>
+                <div class="doc-credentials">
+                  BDS, FCPS(OMFS), CHPE (NUMS)<br>Oral &amp; Maxillofacial Surgeon<br>
+                  Ex. Assistant Professor CIMS Dental College CMH Multan
+                </div>
+              </div>
+              <div class="doctor-card">
+                <div class="doc-name">Dr Abu Bakar</div>
+                <div class="doc-credentials">
+                  BDS(IMDC), RDS(PMDC)<br>Consultant Dental Surgeon<br>
+                  Ex. House Officer (IMDC) Islamabad
+                </div>
+              </div>
+              <div class="doctor-card">
+                <div class="doc-name">Dr Amna Niazi</div>
+                <div class="doc-credentials">
+                  Bsc, BDS, RDS(PMDC)<br>FCPS(R) Orthodontist<br>
+                  De'montmorency College, Lahore
+                </div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <div class="address">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>Langrial Surgimed Hospital<br>Fateh Sher Colony, Sahiwal</span>
+              </div>
+              <div class="contact">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.37 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <div class="nums">
+                  <p>0320-4885299</p>
+                  <p>0303-8874087</p>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <script src="../../js/core.js"></script>
+  <script>
+    let systemMedicines = [];
+    let patients = [];
+
+    // Auto-resize textareas logic
+    function attachAutoResize() {
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach(ta => {
+        ta.addEventListener('input', function () {
+          this.style.height = 'auto';
+          this.style.height = this.scrollHeight + 'px';
+        });
+      });
+    }
+
+    async function loadData() {
+      try {
+        // Set date
+        document.getElementById('rx_date').value = new Date().toISOString().split('T')[0];
+
+        // Load staff
+        const doctors = await APP.api.get("/staff");
+        const docSelect = document.getElementById("rx_doctor");
+        doctors.forEach(d => {
+          const opt = document.createElement("option");
+          opt.value = d.staffId || d._id;
+          opt.textContent = d.name;
+          docSelect.appendChild(opt);
+        });
+
+        // Load patient
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId = urlParams.get('patientId');
+        if (patientId) {
+          const patient = await APP.api.get(`/patients/${patientId}`);
+          patients = [patient];
+          document.getElementById('patientNameDisplay').value = `${patient.firstName} ${patient.lastName}`;
+
+          let ageGen = '';
+          if (patient.dob) {
+            const age = new Date().getFullYear() - new Date(patient.dob).getFullYear();
+            ageGen += age;
+          }
+          if (patient.gender) ageGen += ` / ${patient.gender.charAt(0).toUpperCase()}`;
+          document.getElementById('patientAgeGender').value = ageGen;
+
+          document.getElementById('rx_patientId').innerHTML = `<option value="${patientId}" selected></option>`;
+
+          // Pre-fill history if available
+          if (patient.medicalHistoryNotes) {
+            document.getElementById('f_med_history').value = patient.medicalHistoryNotes;
+          }
+        }
+
+        // Load system medicines
+        try {
+          systemMedicines = await APP.api.get("/medications");
+          renderQuickAddSection();
+        } catch (e) { console.error("Failed to load meds", e); }
+
+        addMedicineRow(); // initial blank row
+        attachAutoResize();
+
+      } catch (err) {
+        console.error("Failed to initialize app:", err);
+      }
+    }
+
+    function setDiagnosis(text) {
+      const el = document.getElementById('rx_diagnosis');
+      el.value = (el.value ? el.value + ', ' : '') + text;
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    }
+
+    function renderQuickAddSection() {
+      const container = document.getElementById("quickAddContainer");
+      if (!container) return;
+      container.innerHTML = '';
+      systemMedicines.forEach(med => {
+        const span = document.createElement("span");
+        span.className = "q-chip";
+        span.textContent = med.name;
+        const dosage = (med.defaultDosage || "").replace(/'/g, "\\'");
+        const freq = (med.defaultFrequency || "").replace(/'/g, "\\'");
+        const duration = (med.defaultDuration || "").replace(/'/g, "\\'");
+        span.setAttribute("onclick", `quickAdd('${med.name.replace(/'/g, "\\'")}', '${dosage}', '${freq}', '${duration}')`);
+        container.appendChild(span);
+      });
+    }
+
+    function quickAdd(name, dosage, freq, duration) {
+      addMedicineRow({ name, dosage, frequency: freq, duration });
+    }
+
+    function addMedicineRow(med = {}) {
+      const container = document.getElementById("medicinesContainer");
+      const id = 'med_' + Date.now() + Math.random().toString().substring(2, 6);
+      const row = document.createElement("div");
+      row.classList.add("rx-med-row");
+      row.id = id;
+      row.innerHTML = `
+        <input type="text" placeholder="Name" value="${med.name || ""}" required>
+        <input type="text" placeholder="Dosage" value="${med.dosage || ""}" style="flex:0.6" required>
+        <input type="text" placeholder="Freq" value="${med.frequency || ""}" style="flex:0.5" required>
+        <input type="text" placeholder="Duration" value="${med.duration || ""}" style="flex:0.5" required>
+        <button type="button" class="btn-remove-med" onclick="document.getElementById('${id}').remove()">✕</button>
+      `;
+      container.appendChild(row);
+
+      if (!med.name) {
+        const emptyInput = row.querySelector('input');
+        if (emptyInput) emptyInput.focus();
+      }
+    }
+
+    async function savePrescription(status) {
+      const patientId = document.getElementById("rx_patientId").value;
+      const staffId = document.getElementById("rx_doctor").value;
+      const date = document.getElementById("rx_date").value;
+
+      if (!patientId || !staffId) {
+        alert("Patient and Doctor are required.");
+        return;
+      }
+
+      // Collect medicines
+      const newMedsToLearn = [];
+      const medications = Array.from(document.querySelectorAll(".rx-med-row")).map(row => {
+        const inputs = row.querySelectorAll("input");
+        const name = inputs[0].value.trim();
+        const dosage = inputs[1].value.trim();
+        const frequency = inputs[2].value.trim();
+        const duration = inputs[3].value.trim();
+
+        if (name && !systemMedicines.some(m => m.name.toLowerCase() === name.toLowerCase())) {
+          newMedsToLearn.push({ name, defaultDosage: dosage, defaultFrequency: frequency, defaultDuration: duration });
+        }
+        return { name, dosage, frequency, duration };
+      }).filter(m => m.name !== "");
+
+      if (medications.length === 0) {
+        alert("Please add at least one medicine.");
+        return;
+      }
+
+      const rxData = {
+        patientId,
+        staffId,
+        date,
+        diagnosis: document.getElementById("rx_diagnosis").value,
+        allergies: document.getElementById("rx_allergies").value,
+        medications,
+        status,
+        encounterData: {
+          vitals: {
+            bp: document.getElementById("v_bp").value,
+            pulse: document.getElementById("v_pulse").value,
+            temp: document.getElementById("v_temp").value,
+            rr: document.getElementById("v_rr").value,
+            spo2: document.getElementById("v_spo2").value,
+            weight: document.getElementById("v_weight").value
+          },
+          chiefComplaint: document.getElementById("f_chief_complaint").value,
+          medicalHistory: document.getElementById("f_med_history").value,
+          investigation: document.getElementById("f_investigation").value,
+          treatmentDone: document.getElementById("f_treatment_done").value,
+          treatmentPlan: document.getElementById("f_treatment_plan").value,
+          followUpDate: document.getElementById("f_follow_up").value
+        }
+      };
+
+      try {
+        await APP.api.post("/prescriptions", rxData);
+
+        if (newMedsToLearn.length > 0) {
+          for (const m of newMedsToLearn) {
+            try { await APP.api.post("/medications", m); } catch (e) { }
+          }
+        }
+
+        if (status === 'locked') {
+          window.print();
+          setTimeout(() => {
+            window.location.href = `../patients/prescriptions.html?id=${patientId}`;
+          }, 1000);
+        } else {
+          window.location.href = `../patients/prescriptions.html?id=${patientId}`;
+        }
+      } catch (err) {
+        console.error("Failed to save prescription:", err);
+        alert("Failed to save prescription.");
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+
+</html>

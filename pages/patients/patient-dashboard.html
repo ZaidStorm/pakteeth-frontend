@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients | PakTeeth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/modals.css">
+    <link rel="stylesheet" href="../../css/patient-dashboard.css">
+    <link rel="stylesheet" href="../../css/patient-grid-list-view.css">
+    <link rel="stylesheet" href="../../css/city-suggestions.css">
+    <link rel="stylesheet" href="../../css/dial/patient-dial.css">
+    <link rel="stylesheet" href="../../css/loader/global-loader.css">
+</head>
+
+<body class="has-loader">
+    <!-- Premium Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="loader-center-content">
+                <div class="loader-icon-small"><img src="../../assets/icons/128x128.png" style="width: 48px; height: 48px;" alt="PakTeeth Logo"></div>
+                <div class="loader-progress-number" id="loader-pct">0%</div>
+            </div>
+            <div class="loader-spinner-wrap">
+                <div class="sc-loader-ring" id="loader-ring"></div>
+            </div>
+            <div class="loader-text">PakTeeth</div>
+            <div class="loader-subtext">Compiling Directory...</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" id="appTopNav">
+            <a href="../dashboard/dashboard.html" class="nav-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide-tooth">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                    <circle cx="12" cy="9" r="3" />
+                </svg>
+                PakTeeth
+            </a>
+            <div class="nav-menu">
+                <a href="../dashboard/dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="../patients/patient-dashboard.html" class="nav-item active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Patients
+                </a>
+                <a href="../appointments/appointments.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    Appointments
+                </a>
+                <a href="../doctors/doctors.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Staff
+                </a>
+                <a href="../settings/settings.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-content">
+                        <a href="../analytics/analytics.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Analytics
+                        </a>
+                        <a href="../analytics/daily-report.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            Daily Report
+                        </a>
+                        <a href="../capital/capital-summary.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                            Capital
+                        </a>
+                        <a href="#" class="nav-item logout-item" onclick="APP.logout(); return false;" title="Logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" x2="9" y1="12" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-title">
+                    <h2 class="dashboard-main-title">Patients <span class="accent-italic">Dashboard</span></h2>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary-outline" onclick="exportPatients()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="btn-icon-svg">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" x2="12" y1="15" y2="3" />
+                        </svg>
+                        Export CSV
+                    </button>
+                    <div class="dropdown" id="patientSearchDropdownContainer">
+                        <button class="btn btn-info-outline" id="patientSearchDropdownBtn"
+                            onclick="togglePatientSearchDropdown()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="btn-icon-svg">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                            Patient Search
+                        </button>
+                        <div id="patientSearchDropdown" class="dropdown-content">
+                            <a href="#" onclick="showPatientSearchByCity(); return false;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                By City
+                            </a>
+                            <a href="#" onclick="showPatientSearchByDate(); return false;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                                    <path d="M16 2v4M8 2v4M3 10h18" />
+                                </svg>
+                                By Date
+                            </a>
+                            <a href="#" onclick="showPatientSearchByAppointments(); return false;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M8 2v4" />
+                                    <path d="M16 2v4" />
+                                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                                    <path d="M3 10h18" />
+                                    <path d="M8 14h.01" />
+                                    <path d="M12 14h.01" />
+                                    <path d="M16 14h.01" />
+                                    <path d="M8 18h.01" />
+                                    <path d="M12 18h.01" />
+                                    <path d="M16 18h.01" />
+                                </svg>
+                                By Appointments
+                            </a>
+                            <a href="#" onclick="showPatientSearchAllRecords(); return false;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                All Records
+                            </a>
+                        </div>
+                    </div>
+                    <button id="addNewPatientBtn" class="btn btn-primary-elevated">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="btn-icon-svg">
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                        </svg>
+                        Add New Patient
+                    </button>
+                </div>
+            </header>
+
+            <section class="page-content">
+                <!-- KPI STATS GRID -->
+                <div class="kpi-stats-container">
+                    <div class="stat-card" style="background: #dbeafe; border-color: rgba(42, 157, 244, 0.3);">
+                        <div class="stat-label">TOTAL PATIENTS</div>
+                        <div class="stat-value" id="statsTotalPatients">0</div>
+                        <div class="stat-pill blue">Active</div>
+                    </div>
+                    <div class="stat-card" style="background: #dcfce7; border-color: rgba(39, 174, 96, 0.3);">
+                        <div class="stat-label">REGISTERED TODAY</div>
+                        <div class="stat-value" id="statsRegisteredToday">0</div>
+                        <div class="stat-pill green">+0 today</div>
+                    </div>
+                    <div class="stat-card" style="background: #cffafe; border-color: rgba(6, 182, 212, 0.3);">
+                        <div class="stat-label">APPOINTMENTS</div>
+                        <div class="stat-value" id="statsUpcomingAppointments">0</div>
+                        <div class="stat-pill light-blue">Upcoming</div>
+                    </div>
+                    <div class="stat-card" style="background: #fee2e2; border-color: rgba(239, 68, 68, 0.3);">
+                        <div class="stat-label">CITIES COVERED</div>
+                        <div class="stat-value" id="statsCitiesCovered">0</div>
+                        <div class="stat-pill info" id="statsTopCity">N/A</div>
+                    </div>
+                </div>
+
+                <!-- Standard Patient Directory View -->
+                <div id="standardPatientsView">
+                    <div class="directory-toolbar">
+                        <div class="search-box-container">
+                            <select id="searchTypePatient" class="toolbar-select" onchange="filterPatients()">
+                                <option value="all">Search by: All</option>
+                                <option value="id">ID</option>
+                                <option value="name">Name</option>
+                                <option value="phone">Phone</option>
+                            </select>
+                            <div class="search-input-wrapper">
+                                <input type="text" id="searchPatient" class="toolbar-input"
+                                    placeholder="Search by name, ID, phone..." onkeyup="filterPatients()">
+                                <button class="search-icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                        height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="m21 21-4.3-4.3" />
+                                    </svg></button>
+                            </div>
+                        </div>
+                        <div class="view-toggle-container">
+                            <button class="view-btn" id="btn-list-view" onclick="setViewMode('list')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="8" x2="21" y1="6" y2="6" />
+                                    <line x1="8" x2="21" y1="12" y2="12" />
+                                    <line x1="8" x2="21" y1="18" y2="18" />
+                                    <line x1="3" x2="3.01" y1="6" y2="6" />
+                                    <line x1="3" x2="3.01" y1="12" y2="12" />
+                                    <line x1="3" x2="3.01" y1="18" y2="18" />
+                                </svg> List
+                            </button>
+                            <button class="view-btn" id="btn-grid-view" onclick="setViewMode('grid')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="7" height="7" x="3" y="3" rx="1" />
+                                    <rect width="7" height="7" x="14" y="3" rx="1" />
+                                    <rect width="7" height="7" x="14" y="14" rx="1" />
+                                    <rect width="7" height="7" x="3" y="14" rx="1" />
+                                </svg> Grid
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Procedure Filter Bar -->
+                    <div class="procedure-filter-bar">
+                        <button class="procedure-pill active" onclick="filterByProcedure('all')">Show All</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Consultation')">Consultation</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Scaling & Polishing')">Scaling &
+                            Polishing</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Root Canal Treatment')">Root Canal
+                            Treatment</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Extraction')">Extraction</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Fillings')">Fillings</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Ortho Activation')">Ortho
+                            Activation</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Implant pts')">Implant pts</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Ortho pts')">Ortho pts</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Veneers')">Veneers</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('OMFS surgeries')">OMFS
+                            Surgeries</button>
+                        <button class="procedure-pill" onclick="filterByProcedure('Zirconias')">Zirconias</button>
+                    </div>
+
+                    <!-- Patients Container -->
+                    <div id="patientsContainer" class="grid-mode">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Enhanced Pagination Container -->
+                    <div id="patientPagination" class="pagination-container" style="margin-top: 1.5rem; text-align: center;">
+                        <!-- Pagination controls populated by JS -->
+                    </div>
+                </div> <!-- End standardPatientsView -->
+
+                <!-- Patients by City Section (Hidden by default) -->
+                <div id="patientsByCitySection" class="card" style="display: none;">
+                    <h3>Patients by City</h3>
+                    <p class="subtitle">View and manage patients grouped by city. Search, filter, and export data.</p>
+
+                    <div class="patients-controls" style="margin-bottom: 15px;">
+                        <select id="citySearchSelect" class="form-control" style="width: 250px; display: inline-block;">
+                            <option value="">All Cities</option>
+                        </select>
+                        <button class="btn btn-warning" onclick="displayPatientsByCity()">Refresh</button>
+                        <button class="btn btn-primary" onclick="downloadPatientsByCityPDF()">Download PDF</button>
+                        <button class="btn btn-secondary" onclick="closeAdvancedSearch()" style="float: right;">Back to
+                            Directory</button>
+                    </div>
+
+                    <div id="patientsCityContainer" class="table-responsive">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div id="cityPatientsPagination" style="margin-top: 1rem; text-align: center;">
+                        <!-- Pagination controls populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Patients by Date Section (Hidden by default) -->
+                <div id="patientsByDateSection" class="card" style="display: none;">
+                    <h3>Patients by Date</h3>
+                    <p class="subtitle">Search patients registered between specific dates.</p>
+
+                    <div class="patients-controls"
+                        style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <label for="dateSearchFrom">From:</label>
+                        <input type="date" id="dateSearchFrom" class="form-control" style="width: auto;">
+                        <label for="dateSearchTo">To:</label>
+                        <input type="date" id="dateSearchTo" class="form-control" style="width: auto;">
+                        <button class="btn btn-warning" onclick="displayPatientsByDate()">Search</button>
+                        <button class="btn btn-primary" onclick="downloadPatientsByDatePDF()">Download PDF</button>
+                        <button class="btn btn-secondary" onclick="closeAdvancedSearch()"
+                            style="margin-left: auto;">Back to Directory</button>
+                    </div>
+
+                    <div style="margin-bottom: 15px; font-weight: bold; font-size: 1.1em;">
+                        Total Patients: <span id="totalPatientsByDateCount">0</span>
+                    </div>
+
+                    <div id="patientsDateContainer" class="table-responsive">
+                        <table class="table" id="patientsByDateTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Name</th>
+                                    <th>City</th>
+                                    <th>Gender</th>
+                                    <th>Registration Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientsByDateTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="datePatientsPagination" style="margin-top: 1rem; text-align: center;">
+                        <!-- Pagination controls populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Patients by Appointments Section (Hidden by default) -->
+                <div id="patientsByAppointmentsSection" class="card" style="display: none;">
+                    <h3>Patients by Appointments</h3>
+                    <p class="subtitle">Search patients based on their appointment details.</p>
+
+                    <div class="patients-controls"
+                        style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="appointmentSearchInput" class="form-control" style="width: 250px;"
+                            placeholder="Search by name, phone, or Doctor..."
+                            onkeyup="if(event.key === 'Enter') displayPatientsByAppointments()">
+                        <label for="appDateSearchFrom">From:</label>
+                        <input type="date" id="appDateSearchFrom" class="form-control" style="width: auto;">
+                        <label for="appDateSearchTo">To:</label>
+                        <input type="date" id="appDateSearchTo" class="form-control" style="width: auto;">
+                        <button class="btn btn-warning" onclick="displayPatientsByAppointments()">Search</button>
+                        <button class="btn btn-primary" onclick="downloadPatientsByAppointmentsPDF()">Download
+                            PDF</button>
+                        <button class="btn btn-secondary" onclick="closeAdvancedSearch()"
+                            style="margin-left: auto;">Back to Directory</button>
+                    </div>
+
+                    <div style="margin-bottom: 15px; font-weight: bold; font-size: 1.1em;">
+                        Total Appointments: <span id="totalPatientsByAppointmentsCount">0</span>
+                    </div>
+
+                    <div id="patientsAppointmentsContainer" class="table-responsive">
+                        <table class="table" id="patientsByAppointmentsTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Phone</th>
+                                    <th>Doctor</th>
+                                    <th>Appointment Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientsByAppointmentsTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="appointmentsPatientsPagination" style="margin-top: 1rem; text-align: center;">
+                        <!-- Pagination controls populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Patient Record Export Section (Hidden by default) -->
+                <div id="patientRecordExportSection" style="display: none;">
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3>Patient Record Export</h3>
+                                <p>Search a patient using <strong>Patient ID, Phone Number, or Name</strong>. All
+                                    treatments, prescriptions, billing and doctors involved will be shown.</p>
+                            </div>
+                            <button class="btn btn-secondary" onclick="closeAdvancedSearch()">Back to Directory</button>
+                        </div>
+
+                        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+                            <input type="text" id="patientSearchInput" class="form-control"
+                                placeholder="Enter Patient ID / Phone / Name" style="width:250px">
+                            <button class="btn btn-primary" onclick="searchPatientRecord()">Search</button>
+                            <button class="btn btn-secondary" onclick="downloadPatientRecord()">Download Record</button>
+                        </div>
+                    </div>
+
+                    <!-- PATIENT INFO -->
+                    <div class="card" style="margin-top: 15px;">
+                        <h3>Patient Information</h3>
+                        <table class="table" style="width: 100%;">
+                            <tbody id="patientInfoTable">
+                                <tr>
+                                    <td colspan="2" style="text-align:center">No patient selected</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TREATMENTS -->
+                    <div class="card" style="margin-top: 15px;">
+                        <h3>Treatments & Doctors</h3>
+                        <table class="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Doctor</th>
+                                    <th>Treatment</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody id="treatmentTable"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- PRESCRIPTIONS -->
+                    <div class="card" style="margin-top: 15px;">
+                        <h3>Prescriptions</h3>
+                        <table class="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Doctor</th>
+                                    <th>Medicines</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prescriptionTable"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- BILLING -->
+                    <div class="card" style="margin-top: 15px;">
+                        <h3>Billing Summary</h3>
+                        <table class="table" style="width: 100%;">
+                            <tr>
+                                <td>Total Treatment Cost</td>
+                                <td id="totalAmount">0</td>
+                            </tr>
+                            <tr>
+                                <td>Total Paid</td>
+                                <td id="paidAmount">0</td>
+                            </tr>
+                            <tr>
+                                <td>Credits</td>
+                                <td id="creditAmount">0</td>
+                            </tr>
+                            <tr>
+                                <td>Balance Due</td>
+                                <td id="balanceAmount">0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Patient Modal -->
+    <div id="addPatientModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="patientModalTitle">Add New Patient</h3>
+                <div id="patientModalSubtitle"
+                    style="font-size: 0.85rem; color: var(--text-muted, #666); margin-top: 2px; display: none;"></div>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <input type="hidden" id="editPatientId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" id="p_firstName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" id="p_lastName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" id="p_dob" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Age</label>
+                            <input type="number" id="p_age" class="form-control" placeholder="Age in years">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <select id="p_gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Patient Status</label>
+                            <select id="p_status" class="form-control" onchange="handleStatusAutoUpdate()">
+                                <option value="Active">Active</option>
+                                <option value="Discontinued">Discontinued</option>
+                                <option value="Died">Died</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone *</label>
+                            <input type="text" id="p_phone" class="form-control" placeholder="03xx-xxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="p_email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" id="p_city" class="form-control" placeholder="Search city...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Assigned Doctor</label>
+                            <select id="p_assignedDoctor" class="form-control">
+                                <option value="">Select Doctor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Registration Date *</label>
+                            <input type="date" id="p_registrationDate" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea id="p_address" class="form-control" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn"
+                    onclick="Modal.close('addPatientModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="savePatient()">Save Patient</button>
+            </div>
+        </div>
+    </div>    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            const progressBar = document.getElementById("loader-ring");
+            const progressText = document.getElementById("loader-pct");
+
+            if (!loader || !progressBar || !progressText) return;
+
+            let progress = 0;
+            const interval = setInterval(function () {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + "%";
+                progressText.textContent = progress + "%";
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = "0";
+                        loader.style.visibility = "hidden";
+                        setTimeout(() => { loader.remove(); }, 500);
+                    }, 400);
+                }
+            }, 30);
+        });
+    </script>
+
+
+    <script src="../../js/core.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/dial/patient-dial.js"></script>
+    <script src="../../js/patient-dashboard.js"></script>
+    <script src="../../js/city-manager.js"></script>
+    <script src="../../js/appointment.js"></script>
+    <script src="/js/license-guard.js"></script>
+</body>
+
+</html>

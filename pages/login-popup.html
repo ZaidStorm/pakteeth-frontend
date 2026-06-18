@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | PakTeeth</title>
+    <!-- Fonts: Inter for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/images/tooth.png">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
+</head>
+
+<body>
+    <div class="login-popup-container">
+        <div class="login-card">
+            <div class="brand-icon">
+                <svg class="icon" viewBox="0 0 24 24" style="width: 48px; height: 48px;">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                    <circle cx="12" cy="9" r="3" />
+                </svg>
+            </div>
+            <h2 class="card-title">Sign In</h2>
+            <p class="card-subtitle">Access your dental management dashboard and patient records.</p>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input class="form-control" type="email" id="email" required placeholder="user@pakteeth.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input class="form-control" type="password" id="password" required placeholder="••••••••">
+                        <button type="button" class="toggle-password" id="togglePwd" title="Show/Hide Password">
+                            <svg class="icon eye-on" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <svg class="icon eye-off" viewBox="0 0 24 24" style="display:none">
+                                <path
+                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                <line x1="1" y1="1" x2="23" y2="23" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="loginError" class="alert-danger"></div>
+
+                <button class="btn-submit" type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- We link a specialized JS for the popup -->
+    <script src="../js/login-popup.js"></script>
+    <script src="/js/license-guard.js"></script>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>
+</body>
+
+</html>

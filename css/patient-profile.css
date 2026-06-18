@@ -1,0 +1,703 @@
+
+/* ========================
+   PAGE BACKGROUND
+======================== */
+body {
+  background: linear-gradient(135deg, #d5e8d4, #f8fdf8);
+  background-size: 200% 200%;
+  animation: bgMove 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes bgMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bgMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* ========================
+   GLOBAL RESET & THEME
+======================== */
+:root {
+  --primary-color: #1a6b35;
+  --primary-light: #d5e8d4;
+  --primary-dark: #0d3d1f;
+  --secondary-color: #6c757d;
+  --accent-color: #4caf50;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --danger-color: #e74c3c;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--gray-800);
+  line-height: 1.5;
+}
+
+/* ========================
+   APP SHELL & LAYOUT
+======================== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;
+}
+
+/* ========================
+   PROFILE HERO SECTION
+======================== */
+/* Hero and stat styles removed (now global) */
+
+/* ========================
+   PROFILE GRID
+======================== */
+.profile-grid {
+  max-width: 1280px;
+  margin: 1.5rem auto 2rem;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+}
+
+/* ========================
+   ASIDE PANEL
+======================== */
+.profile-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+/* ========================
+   TABS & PANELS
+======================== */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--gray-600);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: var(--gray-100);
+  color: var(--primary-color);
+}
+
+.tab.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 5px 15px rgba(26, 107, 53, 0.3);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================
+   MODAL OVERRIDES
+   ======================== */
+#procedureModal .modal-content {
+  max-width: 850px !important;
+}
+
+/* ========================
+   BUTTONS
+   ======================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: #5eb5ec;
+  background: #f9f9f9;
+  /* Default slate */
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #475569;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1a6b35, #1a6b35) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(26, 107, 53, 0.3) !important;
+}
+
+.btn-secondary {
+  background: #54c22c !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(84, 194, 44, 0.25) !important;
+}
+
+.btn-danger {
+  background: #e53935 !important;
+  color: #fff !important;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.btn-ghost {
+  color: var(--gray-600);
+  box-shadow: none !important;
+}
+
+.btn-ghost:hover {
+  background: var(--gray-100) !important;
+  transform: none;
+}
+
+/* ========================
+   UTILITIES
+======================== */
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid var(--gray-200);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary-light);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+/* ========================
+   TIMELINE STYLES
+======================== */
+#activityTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-light) transparent;
+}
+
+#activityTimeline::-webkit-scrollbar {
+  width: 6px;
+}
+
+#activityTimeline::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#activityTimeline::-webkit-scrollbar-thumb {
+  background-color: var(--primary-light);
+  border-radius: 20px;
+  border: transparent;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 95px;
+  top: 0;
+  bottom: -1.5rem;
+  width: 2px;
+  background: var(--gray-200);
+  z-index: 1;
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+.timeline-date {
+  min-width: 85px;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  font-weight: 600;
+  padding-top: 0.25rem;
+}
+
+.timeline-content {
+  flex: 1;
+  background: var(--gray-100);
+  padding: 1rem;
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-content::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 15px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.timeline-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+/* ========================
+   MAIN CONTAINER
+======================== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ========================
+   TOP NAVIGATION
+======================== */
+.top-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1a6b35;
+  padding: 12px 25px;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: white;
+  min-width: 160px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  flex-direction: column;
+  z-index: 200;
+}
+
+.nav-dropdown.active .nav-dropdown-content {
+  display: flex;
+}
+
+.nav-dropdown-content .nav-item {
+  color: #1a6b35;
+  padding: 10px 15px;
+}
+
+.nav-dropdown-content .nav-item:hover {
+  background: #f0f7f0;
+}
+
+/* ========================
+   PAGE HEADER
+======================== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 15px;
+  flex-wrap: wrap;
+}
+
+.header-title h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.kpi-toggle button {
+  background: linear-gradient(135deg, #1a6b35, #4caf50);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Header actions use global btn-danger */
+
+/* ========================
+   RESPONSIVE
+======================== */
+@media (max-width: 1024px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-hero-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* ========================
+   ACTIVE SESSION BANNER
+======================== */
+.active-session-banner {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(26, 107, 53, 0.2);
+  animation: slideDown 0.4s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.session-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.session-timer {
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.timer-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================
+   CLINICAL NOTES SECTION
+======================== */
+#clinicalNotesSection {
+  max-width: 1280px;
+  margin: 1rem auto 2rem;
+  padding: 0 1.5rem;
+}
+
+/* Override for the notes container body */
+#clinicalNotesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: #f0f4f8;
+  border-radius: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c8d8f0 transparent;
+}
+
+#clinicalNotesContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+#clinicalNotesContainer::-webkit-scrollbar-thumb {
+  background: #c8d8f0;
+  border-radius: 10px;
+}
+
+/* Individual chat bubble */
+.clinical-note-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #d5e8d4;
+  color: #1e3a5f;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border-bottom-left-radius: 4px;
+  max-width: 85%;
+  align-self: flex-start;
+  box-shadow: 0 2px 6px rgba(39, 102, 186, 0.12);
+  font-size: 0.93rem;
+  line-height: 1.5;
+  word-break: break-word;
+  animation: bubbleIn 0.25s ease-out;
+}
+
+.note-bubble-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@keyframes bubbleIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Badge on section title */
+#clinicalNotesBadge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}

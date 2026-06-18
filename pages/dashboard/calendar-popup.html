@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Calendar | PakTeeth</title>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/modals.css">
+    <link rel="stylesheet" href="../../css/calender.css">
+    <link rel="stylesheet" href="../../css/city-suggestions.css">
+    <style>
+        .calendar-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .calendar-popup-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="padding: 20px 30px;">
+        <div class="calendar-wrapper">
+            <div class="calendar-controls">
+                <div class="calendar-title-group">
+                    <h2 id="calendarTitle">Loading...</h2>
+                </div>
+
+                <div class="calendar-actions">
+                    <div class="nav-btn-group">
+                        <button id="prevBtn" title="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button id="nextBtn" title="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <select id="calendarDoctorSelect" class="form-control" style="display: none;">
+                        <option value="">Select Doctor</option>
+                    </select>
+                    <select id="viewSelect" class="form-control">
+                        <option value="day" selected>Day View</option>
+                        <option value="week">Week View</option>
+                        <option value="month">Month View</option>
+                    </select>
+                </div>
+            </div>
+            <div id="calendarContent" class="calendar-content"></div>
+        </div>
+    </div>
+
+    <div class="glass-overlay"></div>
+
+    <!-- Booking Modal -->
+    <div id="addAppointmentModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Book Appointment</h3>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs -->
+                <div class="tabs" style="margin-bottom:1rem; display:flex; gap:1rem;">
+                    <button type="button" class="btn btn-secondary tab active" data-tab="tab-existing"
+                        onclick="switchPatientTab('existing')">Existing Patient</button>
+                    <button type="button" class="btn btn-secondary tab" data-tab="tab-new"
+                        onclick="switchPatientTab('new')">New Patient</button>
+                </div>
+
+                <form id="bookingForm">
+                    <input type="hidden" id="apt_id">
+                    <input type="hidden" id="patient_mode" value="existing">
+
+                    <!-- EXISTING PATIENT TAB -->
+                    <div id="tab-existing" class="tab-panel">
+                        <div class="form-group" style="position: relative;" id="apptPatientSearchGroup">
+                            <label class="form-label">Search Patient (Name, ID or Phone)</label>
+                            <input type="text" id="apptPatientSearch" class="form-control"
+                                placeholder="Type name, ID or phone..." oninput="filterPatientDropdown()"
+                                autocomplete="off" style="padding-right: 32px;">
+                            <span id="apptPatientSearchClear"
+                                onclick="document.getElementById('apptPatientSearch').value=''; filterPatientDropdown();"
+                                style="position:absolute; right:10px; bottom:11px; cursor:pointer; color:#aaa; font-size:16px; user-select:none; display:none;">✕</span>
+                        </div>
+                        <div class="form-group" id="apptPatientListGroup">
+                            <select id="apptPatient" class="form-control"
+                                style="height: 120px; overflow-y: auto; font-size: 0.9rem; padding: 4px 8px; line-height: 1.6;"
+                                size="5" onchange="onPatientSelected()">
+                                <option value=""></option>
+                            </select>
+                            <div id="apptPatientCount"
+                                style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;"></div>
+                            <div id="apptPatientPagination" class="pagination-controls" style="margin-top: 6px; justify-content: center; gap: 6px;"></div>
+                        </div>
+                        <div id="apptPatientConfirm"
+                            style="display:none; background: #f0f8ff; border: 1px solid #2a9df4; border-radius: 8px; padding: 12px 16px; margin-bottom: 8px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <div style="font-size:0.8rem; color:#2a9df4; font-weight:600; margin-bottom:4px;">✓
+                                        Selected Patient</div>
+                                    <div id="apptPatientConfirmName" style="font-weight:bold; font-size:1rem;"></div>
+                                </div>
+                                <button type="button" onclick="clearPatientSelection()"
+                                    style="background:none; border:1px solid #ccc; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.8rem; color:#666;">Change</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW PATIENT TAB -->
+                    <div id="tab-new" class="tab-panel" style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" id="p_firstName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" id="p_lastName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" id="p_dob" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <select id="p_gender" class="form-control">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" id="p_age" class="form-control" placeholder="Years">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City *</label>
+                                <input type="text" id="p_city" class="form-control" placeholder="Search city...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Phone *</label>
+                                <input type="text" id="p_phone" class="form-control" placeholder="03xx-xxxxxxx">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" id="p_email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea id="p_address" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <hr style="margin:1rem 0">
+
+                    <!-- APPOINTMENT DETAILS -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Assigned Dentist *</label>
+                            <select id="apt_dentist" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 5px;">
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            <input type="date" id="apt_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Time *</label>
+                            <select id="apt_time" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Duration (mins) *</label>
+                            <input type="number" id="apt_duration" class="form-control" value="30" step="5" min="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type of Procedure *</label>
+                        <input type="text" id="apt_type" class="form-control" list="procedureList"
+                            placeholder="e.g Consultation">
+                        <datalist id="procedureList">
+                            <option value="Consultation">
+                            <option value="Scaling & Polishing">
+                            <option value="Root Canal Treatment">
+                            <option value="Extraction">
+                            <option value="Fillings">
+                            <option value="Ortho Activation">
+                            <option value="Implant pts">
+                            <option value="Ortho pts">
+                            <option value="Veneers">
+                            <option value="OMFS surgeries">
+                            <option value="Zirconias">
+                        </datalist>
+                    </div>
+
+                    <hr style="margin:1rem 0">
+
+                    <!-- INVOICE SECTION -->
+                    <h4 style="margin: 5px 0;">Invoice / Payment (Optional)</h4>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1.5;">
+                            <label class="form-label">Services *</label>
+                            <textarea id="inv_services" class="form-control" rows="2"
+                                placeholder="e.g. Scaling, Filling..."></textarea>
+                            <div style="margin-top:5px; font-weight:bold; color:#2a9df4; font-size: 14px;">
+                                Balance: <span id="inv_balance_label">0.00</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <div class="form-group">
+                                <label class="form-label">Total Amount</label>
+                                <input type="number" id="inv_total" class="form-control" placeholder="0.00"
+                                    oninput="calculateBalance()">
+                            </div>
+                            <div class="form-row" style="gap: 5px;">
+                                <div class="form-group">
+                                    <label class="form-label">Discount</label>
+                                    <input type="number" id="inv_discount" class="form-control" placeholder="0"
+                                        oninput="calculateBalance()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Paid Amount</label>
+                                    <input type="number" id="inv_paid" class="form-control" placeholder="0.00"
+                                        oninput="calculateBalance()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addAppointmentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveAppointment()">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Essential Scripts for Calendar -->
+    <script src="../../js/core.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/system-appointments.js"></script>
+    <!-- Doctors.js isn't natively needed if calender.js does staff fetch, but let's safely include it if doctors are used in booking modal -->
+    <script src="../../js/doctors.js"></script>
+    <script src="../../js/city-manager.js"></script>
+    <script src="../../js/calender.js"></script>
+
+    <!-- Expose API for parent window syncing -->
+    <script>
+        // Override saveAppointment slightly so it also syncs back to the parent dashboard if open
+        const originalSaveAppt = window.saveAppointment;
+        if (originalSaveAppt) {
+            window.saveAppointment = async function () {
+                await originalSaveAppt();
+                // Send message to parent window (Dashboard) if opened in iframe
+                if (window.parent && typeof window.parent.loadDashboardData === 'function') {
+                    console.log("Triggering parent dashboard refresh...");
+                    window.parent.loadDashboardData();
+                }
+                // Send message to opener window if opened as popup
+                if (window.opener && !window.opener.closed && typeof window.opener.loadDashboardData === 'function') {
+                    console.log("Triggering opener dashboard refresh...");
+                    window.opener.loadDashboardData();
+                }
+            };
+        }
+    </script>
+    <script src="/js/license-guard.js"></script>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>
+</body>
+
+</html>

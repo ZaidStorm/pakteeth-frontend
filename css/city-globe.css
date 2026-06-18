@@ -1,0 +1,217 @@
+﻿/**
+ * city-globe.css - Advanced Globe & Pakistan Flat Map Overlay
+ */
+
+#gw {
+    width: 100%;
+    background: radial-gradient(ellipse at 40% 35%, #0d3d1f 0%, #0a2e17 55%, #071a0e 100%);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+#gc {
+    display: block;
+    width: 100%;
+    cursor: grab;
+}
+
+#gc.drag {
+    cursor: grabbing;
+}
+
+#hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: .12em;
+    color: rgba(150, 180, 220, 0.4);
+    text-transform: uppercase;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* ── OVERLAY SYSTEM ── */
+#overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    background: rgba(4, 10, 28, 0.98);
+    border-radius: 14px;
+    flex-direction: column;
+    animation: fadeInOverlay 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+#overlay.show {
+    display: flex;
+}
+
+#ov-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    flex-shrink: 0;
+}
+
+#ov-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8f4ff;
+    letter-spacing: .04em;
+}
+
+#ov-sub {
+    font-size: 11px;
+    color: rgba(160, 200, 240, .5);
+    margin-top: 2px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+#ov-close {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .14);
+    color: rgba(200, 220, 255, .7);
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: .05em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+#ov-close:hover {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+    transform: translateX(-2px);
+}
+
+#ov-body {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#map-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── TOOLTIP SYSTEM ── */
+#city-tip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(8, 16, 36, 0.98);
+    border: 1px solid rgba(80, 160, 255, 0.4);
+    border-radius: 10px;
+    padding: 12px 15px;
+    min-width: 175px;
+    display: none;
+    z-index: 60;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+.ct-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.ct-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 3px;
+}
+
+.ct-lbl {
+    font-size: 10px;
+    color: rgba(160, 200, 240, 0.5);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.ct-val {
+    font-size: 10px;
+    color: #cce8ff;
+    font-weight: 600;
+}
+
+.ct-badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin-top: 5px;
+    font-weight: 700;
+    letter-spacing: .05em;
+}
+
+.ct-bar-wrap {
+    margin-top: 8px;
+}
+
+.ct-bar-track {
+    height: 3px;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 2px;
+    margin-top: 4px;
+}
+
+.ct-bar-fill {
+    height: 3px;
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── LEGEND ── */
+#legend {
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    z-index: 55;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+.li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 9px;
+    color: rgba(180, 210, 240, .6);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.ld {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}

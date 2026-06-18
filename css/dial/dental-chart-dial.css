@@ -1,0 +1,99 @@
+﻿/* ============================================================
+   PROCEDURE ROW — PROFESSIONAL HUD STYLE
+   ============================================================ */
+
+/* ---------- HUD wrapper inside table cell ---------- */
+.procedure-hud-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    z-index: 5;
+}
+
+/* Glass overlay for the row (optional, can be skipped for table rows to keep it clean) */
+/* Glass overlay removed as per user request */
+.ph-glass { display: none !important; }
+
+/* ---------- Gear Trigger ---------- */
+.ph-gear {
+    width: 32px;
+    height: 32px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1010;
+    position: relative;
+}
+
+.ph-gear:hover {
+    border-color: #1a6b35;
+    color: #1a6b35;
+    background: #f8fdf8;
+}
+
+.ph-gear.active {
+    background: #1a6b35;
+    border-color: #1a6b35;
+    color: white;
+    box-shadow: 0 4px 12px rgba(26, 107, 53, 0.3);
+}
+
+/* ---------- HUD Buttons ---------- */
+.ph-hud-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1020;
+    opacity: 0;
+    pointer-events: none;
+    border: 1px solid;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s;
+}
+
+.ph-hud-btn.on {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ph-hud-btn:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific Actions */
+.ph-hud-btn.print {
+    border-color: rgba(13, 148, 136, 0.2);
+    color: #0d9488;
+}
+
+.ph-hud-btn.delete {
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* Tooltips removed as per user request */
+
+/* --- Print Helpers --- */
+@media print {
+    .ph-gear, .ph-glass, .no-print-force {
+        display: none !important;
+    }
+}

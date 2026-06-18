@@ -1,0 +1,30 @@
+# Ignore backend, Electron, and server configuration files in Vercel deployment
+.git
+.gitignore
+.claude
+CLAUDE.md
+1.py
+Icon Converter Command.txt
+LAN_SYNC_GUIDE.md
+Moonshot-api.txt
+REACT_BIBLE.md
+react_bible.pdf
+config/
+detect_cameras.py
+docs/
+electron/
+graphify command.txt
+graphify-out/
+license.json
+migrate.js
+node_modules/
+package.json
+package-lock.json
+resources/
+scripts/
+server/
+temp_docx_writer/
+temp_pdf_reader/
+tools/
+view_all_cameras.py
+assets/

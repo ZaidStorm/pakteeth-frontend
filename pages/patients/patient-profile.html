@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile | PakTeeth</title>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/modals.css">
+    <link rel="stylesheet" href="../../css/patient-profile.css">
+    <link rel="stylesheet" href="../../css/city-suggestions.css">
+    <link rel="stylesheet" href="../../css/loader/global-loader.css">
+</head>
+
+<body>
+    <!-- Premium Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="loader-center-content">
+                <div class="loader-icon-small"><img src="../../assets/icons/128x128.png" style="width: 48px; height: 48px;" alt="PakTeeth Logo"></div>
+                <div class="loader-progress-number" id="loader-pct">0%</div>
+            </div>
+            <div class="loader-spinner-wrap">
+                <div class="sc-loader-ring" id="loader-ring"></div>
+            </div>
+            <div class="loader-text">PakTeeth</div>
+            <div class="loader-subtext">Loading...</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" id="appTopNav">
+            <a href="../dashboard/dashboard.html" class="nav-brand">
+                <img src="../../assets/icons/64x64.png" style="width: 24px; height: 24px; margin-right: 8px;" alt="PakTeeth Logo">
+                PakTeeth
+            </a>
+            <div class="nav-menu">
+                <a href="../dashboard/dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="../patients/patient-dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Patients
+                </a>
+                <a href="../appointments/appointments.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    Appointments
+                    <span class="nav-badge" id="appt-badge"></span>
+                </a>
+                <a href="../doctors/doctors.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Staff
+                </a>
+                <a href="../settings/settings.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-content">
+                        <a href="../capital/capital-summary.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                            Capital
+                        </a>
+
+                        <a href="../analytics/analytics.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Analytics
+                        </a>
+                        <a href="../analytics/daily-report.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            Daily Report
+                        </a>
+                        <a href="#" class="nav-item logout-item" onclick="APP.logout(); return false;" title="Logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" x2="9" y1="12" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Profile Hero + Tabs (matches sub-page structure) -->
+        <section class="page-content">
+            <div id="profileHero" class="profile-hero-container">
+                <div class="profile-hero">
+                    <div class="profile-hero-inner">
+                        <div class="profile-avatar-lg" id="heroAvatar">👤</div>
+                        <div class="profile-hero-info">
+                            <!-- Removed redundant identity fields to prevent ID conflicts with dynamic dashboard -->
+                            <div class="profile-hero-reg-date" id="heroRegDate"
+                                style="font-size: 0.9rem; opacity: 0.85; margin-top: 10px;"></div>
+                            <div class="profile-hero-badges" id="heroBadges"></div>
+                        </div>
+                        <div class="profile-hero-stats" id="heroStats" style="width: 100%;">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Nav (full-width, between hero and content) -->
+                <div class="tabs" id="profileTabNav">
+                    <a class="tab active" id="tab-overview" href="patient-profile.html">Overview</a>
+                    <a class="tab" id="tab-dental" href="dental-chart.html">Dental Chart</a>
+                    <a class="tab" id="tab-appointments" href="appointments.html">Appointments</a>
+                    <a class="tab" id="tab-prescriptions" href="prescriptions.html">Prescriptions</a>
+                    <a class="tab" id="tab-billing" href="billing.html">Billing</a>
+                    <a class="tab" id="tab-reports" href="reports.html">Reports</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="page-content">
+                <!-- Two-column overview grid -->
+                <div class="profile-grid">
+                    <!-- Left Aside -->
+                    <div class="profile-aside">
+                        <!-- Details Card -->
+                        <div class="card">
+                            <div class="card-header"
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="card-title">📋 Patient Details</div>
+                                <button class="btn btn-ghost btn-sm" onclick="openEditPersonalModal()"
+                                    style="padding: 2px 8px;">✏️ Edit</button>
+                            </div>
+                            <div class="card-body" id="patientDetailsAside">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Medical Snapshot -->
+                        <div class="card">
+                            <div class="card-header"
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="card-title">💊 Medical Snapshot</div>
+                                <button class="btn btn-ghost btn-sm" onclick="openEditMedicalModal()"
+                                    style="padding: 2px 8px;">✏️ Edit</button>
+                            </div>
+                            <div class="card-body" id="medSnapshotAside">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Medical History -->
+                        <div class="card" style="margin-top: 1.5rem;">
+                            <div class="card-header">
+                                <div class="card-title">🩺 Medical History</div>
+                            </div>
+                            <div class="card-body" id="medHistoryAside" style="padding-top: 0.5rem;">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overview Panel -->
+                    <div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <div class="card-title">📊 Visit Summary</div>
+                            </div>
+                            <div class="card-body">
+                                <div id="activeSessionContainer"></div>
+                                <div class="stat-grid" id="overviewStats">
+                                    <div class="empty-state-sm">No summary available</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="card-title">🕐 Recent Activity</div>
+                                <button class="btn btn-ghost btn-sm" onclick="resetPatientActivity()"
+                                    style="color: var(--danger-color); font-size: 0.75rem;">Reset Activity</button>
+                            </div>
+                            <div class="card-body" id="activityTimeline">
+                                <p class="text-muted">No recent activity recorded.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Clinical Notes Section -->
+                <div class="card" style="margin-top: 1.5rem; display: none;" id="clinicalNotesSection">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                            📝 Clinical Notes & Remarks
+                            <span id="clinicalNotesBadge" style="display: none; background: #ef4444; color: white; font-size: 0.75rem; font-weight: bold; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">0</span>
+                        </div>
+                    </div>
+                    <div class="card-body" id="clinicalNotesContainer" style="background: rgba(0,0,0,0.02); border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; border: 1px solid rgba(0,0,0,0.05);">
+                        <p id="displayClinicalNotes" style="white-space: pre-wrap; font-size: 0.95rem; color: var(--text-color); min-height: 50px;">No clinical notes available.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Personal Info Modal -->
+    <div id="editPersonalModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Personal Information</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="editPersonalForm">
+                    <input type="hidden" id="editPersonalPatientId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" id="edit_firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" id="edit_lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" id="edit_dob" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Age</label>
+                            <input type="number" id="edit_age" class="form-control" placeholder="Age in years">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <select id="edit_gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone *</label>
+                            <input type="text" id="edit_phone" class="form-control" placeholder="03xx-xxxxxxx" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="edit_email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" id="edit_city" class="form-control" placeholder="Search city...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Patient Status</label>
+                            <select id="edit_status" class="form-control">
+                                <option value="Active">Active</option>
+                                <option value="Discontinued">Discontinued</option>
+                                <option value="Died">Died</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea id="edit_address" class="form-control" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('editPersonalModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="savePersonalInfo()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Medical Snapshot Modal -->
+    <div id="editMedicalModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Medical Snapshot</h3>
+                <button class="modal-close" onclick="Modal.close('editMedicalModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="editMedicalForm">
+                    <input type="hidden" id="editMedicalPatientId">
+                    <div class="form-group">
+                        <label class="form-label">Medications</label>
+                        <textarea id="edit_medications" class="form-control" rows="3"
+                            placeholder="Enter current medications..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Allergies</label>
+                        <textarea id="edit_allergies" class="form-control" rows="3"
+                            placeholder="Enter known allergies..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('editMedicalModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMedicalSnapshot()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Notes Modal -->
+    <div id="patientNotesModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Clinical Notes</h3>
+                <button class="modal-close" onclick="Modal.close('patientNotesModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Patient observations and additional records</label>
+                    <textarea id="modalNotesText" class="form-control" rows="12"
+                        placeholder="Write any additional records here..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('patientNotesModal')">Close</button>
+                <button class="btn btn-primary" onclick="saveNotesFromModal()">Save Notes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Procedure Modal -->
+    <div id="procedureModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Dental Procedure</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="procedureForm">
+                    <input type="hidden" id="procedurePatientId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            <input type="date" id="procedureDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type *</label>
+                            <input type="text" id="procedureType" class="form-control"
+                                placeholder="e.g., Scaling, Extraction" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tooth Number</label>
+                            <input type="text" id="procedureToothNumber" class="form-control"
+                                placeholder="e.g., 18, 46">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Doctor *</label>
+                            <select id="procedureDoctor" class="form-control" required>
+                                <option value="">Select Doctor...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Cost (PKR)</label>
+                            <input type="number" id="procedureCost" class="form-control" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select id="procedureStatus" class="form-control">
+                                <option value="completed">Completed</option>
+                                <option value="planned">Planned</option>
+                                <option value="in-progress">In Progress</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea id="procedureNotes" class="form-control" rows="3"
+                            placeholder="Additional notes..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('procedureModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProcedure()">Save Procedure</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/core.js"></script>
+    <script src="../../js/city-manager.js"></script>
+    <script src="../../js/patient-profile.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            const progressBar = document.getElementById("loader-ring");
+            const progressText = document.getElementById("loader-pct");
+
+            if (!loader || !progressBar || !progressText) return;
+
+            let progress = 0;
+            const interval = setInterval(function () {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + "%";
+                progressText.textContent = progress + "%";
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = "0";
+                        loader.style.visibility = "hidden";
+                        setTimeout(() => { loader.remove(); }, 500);
+                    }, 400);
+                }
+            }, 30);
+        });
+    </script>
+
+    <script>
+        // Preserve ?id= query param when switching tabs
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const patientId = params.get('id') || '';
+            const qs = patientId ? `?id=${patientId}` : '';
+            const tabs = {
+                'tab-overview': 'patient-profile.html',
+                'tab-dental': 'dental-chart.html',
+                'tab-appointments': 'appointments.html',
+                'tab-prescriptions': 'prescriptions.html',
+                'tab-billing': 'billing.html',
+                'tab-reports': 'reports.html'
+            };
+            for (const [id, url] of Object.entries(tabs)) {
+                const el = document.getElementById(id);
+                if (el) el.href = `${url}${qs}`;
+            }
+        })();
+    </script>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>

@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | PakTeeth</title>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/analytics.css">
+    <link rel="stylesheet" href="../../css/kpi-cards.css">
+    <link rel="stylesheet" href="../../css/modals.css">
+    <link rel="stylesheet" href="../../css/loader/global-loader.css">
+    <!-- Chart.js via CDN for offline fallback we'd normally host locally, using CDN for simplicity as per MVP -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="has-loader">
+    <!-- Premium Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="loader-center-content">
+                <div class="loader-icon-small"><img src="../../assets/icons/128x128.png" style="width: 48px; height: 48px;" alt="PakTeeth Logo"></div>
+                <div class="loader-progress-number" id="loader-pct">0%</div>
+            </div>
+            <div class="loader-spinner-wrap">
+                <div class="sc-loader-ring" id="loader-ring"></div>
+            </div>
+            <div class="loader-text">PakTeeth</div>
+            <div class="loader-subtext">Loading...</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" id="appTopNav">
+            <a href="../dashboard/dashboard.html" class="nav-brand">
+                <img src="../../assets/icons/64x64.png" style="width: 24px; height: 24px; margin-right: 8px;" alt="PakTeeth Logo">
+                PakTeeth
+            </a>
+            <div class="nav-menu">
+                <a href="../dashboard/dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="../patients/patient-dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Patients
+                </a>
+                <a href="../appointments/appointments.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    Appointments
+                    <span class="nav-badge" id="appt-badge"></span>
+                </a>
+                <a href="../doctors/doctors.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Staff
+                </a>
+                <a href="../settings/settings.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-content">
+                        <a href="../capital/capital-summary.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                            Capital
+                        </a>
+
+                        <a href="../analytics/analytics.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Analytics
+                        </a>
+                        <a href="../analytics/daily-report.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            Daily Report
+                        </a>
+                        <a href="#" class="nav-item logout-item" onclick="APP.logout(); return false;" title="Logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" x2="9" y1="12" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <main class="main-content">
+            <div class="analytics-container">
+
+                <header class="page-header">
+                    <div class="header-title">
+                        <h2>Analytics & Operational Visibility</h2>
+                        <p style="color: var(--text-muted); margin-top: 5px;">Monitor clinic performance, patient flow,
+                            and financial health.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="date-selector card">
+                            <label>Period:</label>
+                            <input type="date" id="dateStart" class="form-control" onchange="generateReports()">
+                            <span>to</span>
+                            <input type="date" id="dateEnd" class="form-control" onchange="generateReports()">
+                            <button class="btn btn-secondary btn-sm" onclick="setThisMonth()">This Month</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="exportAnalytics()" id="btnCustomReport">Custom Report
+                            Builder</button>
+                    </div>
+                </header>
+
+                <section class="page-content">
+
+                    <!-- KEY PERFORMANCE INDICATORS -->
+                    <div class="section-label">KEY PERFORMANCE INDICATORS</div>
+                    <div class="kpi-row-grid">
+                        <div class="kpi-box card">
+                            <div class="kpi-box-title">Monthly Revenue</div>
+                            <div class="kpi-box-value" id="statMonthlyRevenue">Rs. 0.00</div>
+                            <div class="kpi-box-trend increment" id="revenueTrend">↑ 0% vs last month</div>
+                        </div>
+                        <div class="kpi-box card">
+                            <div class="kpi-box-title">Patients Seen</div>
+                            <div class="kpi-box-value" id="statPatientsSeen">0</div>
+                            <div class="kpi-box-trend" id="patientsTrend">↑ 0% vs last month</div>
+                        </div>
+                        <div class="kpi-box card">
+                            <div class="kpi-box-title">No-show Rate</div>
+                            <div class="kpi-box-value" id="statNoShowRate">0.0%</div>
+                            <div class="kpi-box-trend decrement" id="noshowTarget">↑ 0% vs target</div>
+                        </div>
+                    </div>
+
+                    <!-- INSIGHTS GRID -->
+                    <div class="insights-row-grid">
+                        <div class="chart-box card">
+                            <h3>Revenue by Clinical Service</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="revenueByCategoryChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-box card">
+                            <h3>Monthly Patient Visits (12 Months)</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="patientVisitTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="insights-row-grid secondary">
+                        <div class="chart-box card">
+                            <h3>Appointment Status Breakdown</h3>
+                            <div class="chart-wrapper donut">
+                                <canvas id="appointmentStatusChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-box card">
+                            <h3>Top Dentists by Revenue</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="topDentistsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INDIVIDUAL PERFORMANCE & KPI DEEP DIVE -->
+                    <div class="section-label" style="margin-top: 3rem;">INDIVIDUAL PERFORMANCE & KPI DEEP DIVE</div>
+
+                    <div class="universal-filter-bar">
+                        <div class="filter-group">
+                            <label>Context:</label>
+                            <select id="kpiContextSelect"
+                                onchange="window.IndividualKPI && IndividualKPI.onContextChange()">
+                                <option value="all">System Overview</option>
+                                <option value="doctor">Specific Doctor</option>
+                                <option value="patient">Specific Patient</option>
+                            </select>
+                        </div>
+                        <div class="filter-group" id="kpiEntityGroup" style="display:none;">
+                            <label id="kpiEntityLabel">Individual:</label>
+                            <div id="kpiEntityPickerWrap" style="display: flex; align-items: center; gap: 10px;">
+                                <select id="kpiEntitySelect" onchange="window.IndividualKPI && IndividualKPI.update()"
+                                    style="min-width: 150px;">
+                                    <option value="">Select Individual</option>
+                                </select>
+                                <button id="btnPickPatient" class="btn btn-secondary btn-sm"
+                                    style="display:none; padding: 6px 12px; border-radius: 8px;"
+                                    onclick="window.IndividualKPI && IndividualKPI.openPatientPicker()">
+                                    Pick Patient...
+                                </button>
+                                <span id="selectedPatientName"
+                                    style="display:none; font-weight:600; font-size:0.9rem; color:#2563eb;"></span>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Period:</label>
+                            <select id="kpiPeriodToggle"
+                                onchange="window.IndividualKPI && IndividualKPI.togglePeriod()">
+                                <option value="today">Today</option>
+                                <option value="lifetime">Overall (Lifetime)</option>
+                                <option value="custom">Custom Date Range</option>
+                            </select>
+                        </div>
+                        <div class="filter-group" id="kpiDateGroup" style="display:none;">
+                            <input type="date" id="kpiDateStart"
+                                onchange="window.IndividualKPI && IndividualKPI.update()">
+                            <span>to</span>
+                            <input type="date" id="kpiDateEnd"
+                                onchange="window.IndividualKPI && IndividualKPI.update()">
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="window.IndividualKPI && IndividualKPI.update()">
+                            Apply Filters
+                        </button>
+                    </div>
+
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 3rem;">
+
+                        <!-- Appointments KPI Card -->
+                        <div class="advanced-kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon" style="color:#f59e0b; background: rgba(245,158,11,0.1);">📅</div>
+                                <div class="kpi-title">Appointments (Done)</div>
+                            </div>
+                            <div class="kpi-body">
+                                <div class="kpi-value" id="ikpi-appointments">0</div>
+                                <div class="kpi-chart-wrapper">
+                                    <canvas id="ikpi-appointments-chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <button class="btn btn-kpi btn-kpi-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M3 3v18h18" />
+                                        <path d="m19 9-5 5-4-4-3 3" />
+                                    </svg> View Graph
+                                </button>
+                                <button class="btn btn-kpi btn-kpi-export"
+                                    onclick="window.IndividualKPI && IndividualKPI.exportAppointments()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" x2="12" y1="15" y2="3" />
+                                    </svg> CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Capital/Revenue KPI Card -->
+                        <div class="advanced-kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon" style="color:#10b981; background: rgba(16,185,129,0.1);">💰</div>
+                                <div class="kpi-title">Capital Generated</div>
+                            </div>
+                            <div class="kpi-body">
+                                <div class="kpi-value" id="ikpi-capital">Rs. 0</div>
+                                <div class="kpi-chart-wrapper">
+                                    <canvas id="ikpi-capital-chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <button class="btn btn-kpi btn-kpi-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M3 3v18h18" />
+                                        <path d="m19 9-5 5-4-4-3 3" />
+                                    </svg> View Graph
+                                </button>
+                                <button class="btn btn-kpi btn-kpi-export"
+                                    onclick="window.IndividualKPI && IndividualKPI.exportCapital()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" x2="12" y1="15" y2="3" />
+                                    </svg> CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Invoices Count KPI Card -->
+                        <div class="advanced-kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon" style="color:#3b82f6; background: rgba(59,130,246,0.1);">🧾</div>
+                                <div class="kpi-title">Invoices Processed</div>
+                            </div>
+                            <div class="kpi-body">
+                                <div class="kpi-value" id="ikpi-invoices">0</div>
+                                <div class="kpi-chart-wrapper">
+                                    <canvas id="ikpi-invoices-chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <button class="btn btn-kpi btn-kpi-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M3 3v18h18" />
+                                        <path d="m19 9-5 5-4-4-3 3" />
+                                    </svg> View Graph
+                                </button>
+                                <button class="btn btn-kpi btn-kpi-export"
+                                    onclick="window.IndividualKPI && IndividualKPI.exportInvoices()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" x2="12" y1="15" y2="3" />
+                                    </svg> CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Treatments KPI Card -->
+                        <div class="advanced-kpi-card">
+                            <div class="kpi-header">
+                                <div class="kpi-icon" style="color:#8b5cf6; background: rgba(139,92,246,0.1);">🩺</div>
+                                <div class="kpi-title">Treatments Performed</div>
+                            </div>
+                            <div class="kpi-body">
+                                <div class="kpi-value" id="ikpi-treatments">0</div>
+                                <div class="kpi-chart-wrapper">
+                                    <canvas id="ikpi-treatments-chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <button class="btn btn-kpi btn-kpi-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M3 3v18h18" />
+                                        <path d="m19 9-5 5-4-4-3 3" />
+                                    </svg> View Graph
+                                </button>
+                                <button class="btn btn-kpi btn-kpi-export"
+                                    onclick="window.IndividualKPI && IndividualKPI.exportTreatments()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" x2="12" y1="15" y2="3" />
+                                    </svg> CSV
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ANALYTICS PAGE FUNCTIONS -->
+                    <div class="section-label" style="margin-top: 3rem;">ANALYTICS PAGE FUNCTIONS</div>
+                    <div class="functions-list">
+                        <div class="function-card card">
+                            <div class="function-icon finance">📈</div>
+                            <div class="function-info">
+                                <h4>Revenue analytics <span class="badge finance">Finance</span></h4>
+                                <p>Track daily, weekly, and monthly revenue broken down by clinical service categories,
+                                    dentists, and providers.</p>
+                            </div>
+                        </div>
+                        <div class="function-card card">
+                            <div class="function-icon patients">👤</div>
+                            <div class="function-info">
+                                <h4>Patient flow tracking <span class="badge patients">Patients</span></h4>
+                                <p>Monitor volume of completed appointments, no-show rates, and return visit trends over
+                                    time.</p>
+                            </div>
+                        </div>
+                        <div class="function-card card">
+                            <div class="function-icon staff">🩺</div>
+                            <div class="function-info">
+                                <h4>Dentist performance report <span class="badge staff">Staff</span></h4>
+                                <p>Compare productivity, revenue generated per provider, and procedure mix to balance
+                                    workload.</p>
+                            </div>
+                        </div>
+                        <div class="function-card card">
+                            <div class="function-icon custom">📜</div>
+                            <div class="function-info">
+                                <h4>Custom report builder <span class="badge custom">Operations</span></h4>
+                                <p>Generate and export specific datasets for financial auditing or clinic board meetings
+                                    on demand.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/core.js"></script>
+    <script src="../../js/analytics.js"></script>
+    <script src="../../js/kpi-cards.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            const progressBar = document.getElementById("loader-ring");
+            const progressText = document.getElementById("loader-pct");
+
+            if (!loader || !progressBar || !progressText) return;
+
+            let progress = 0;
+            const interval = setInterval(function () {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + "%";
+                progressText.textContent = progress + "%";
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = "0";
+                        loader.style.visibility = "hidden";
+                        setTimeout(() => {
+                            loader.remove();
+                            document.body.classList.remove('has-loader');
+                        }, 500);
+                    }, 400);
+                }
+            }, 30);
+        });
+    </script>
+
+    <script src="/js/license-guard.js"></script>
+
+    <!-- Patient Selection Modal -->
+    <div id="patientPickerModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Patient</h3>
+                <button class="modal-close" onclick="Modal.close('patientPickerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <input type="text" id="patientSearchInput" class="form-control"
+                        placeholder="Search by name or ID..." style="flex: 1;">
+                    <button class="btn btn-primary" onclick="window.IndividualKPI.renderPatientList(1)">Search</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="modalPatientTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="patientPickerPagination" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- PakTeeth LAN Sync (Phase 1-3) -->
+    <script src="/js/lib/socket.io.min.js"></script>
+    <script src="/js/network-status.js"></script>
+    <script src="/js/offline-queue.js"></script>
+    <script src="/js/sync-overlay.js"></script>
+        <script src="/js/server-standby.js"></script>
+<script src="/js/socket-client.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,336 @@
+﻿/* css/kpi-cards.css - Styling for interactive data cards */
+
+.advanced-kpi-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+
+.advanced-kpi-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.kpi-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.kpi-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(42, 157, 244, 0.1);
+    color: #2a9df4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.kpi-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpi-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.kpi-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.kpi-chart-wrapper {
+    width: 100%;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.kpi-chart-wrapper.expanded {
+    opacity: 1;
+    max-height: 250px; /* Adjust according to canvas needs */
+}
+
+.kpi-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-kpi {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s, color 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-kpi-toggle {
+    background: rgba(42, 157, 244, 0.08);
+    color: #2a9df4;
+}
+.btn-kpi-toggle:hover {
+    background: rgba(42, 157, 244, 0.15);
+}
+
+.btn-kpi-export {
+    background: rgba(39, 174, 96, 0.08);
+    color: #27ae60;
+}
+.btn-kpi-export:hover {
+    background: rgba(39, 174, 96, 0.15);
+}
+
+/* Universal Filter Bar */
+.universal-filter-bar {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 4px solid var(--neon-cyan);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.filter-group select,
+.filter-group input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    background: #f8fafc;
+    transition: border-color 0.2s;
+}
+
+.filter-group select:focus,
+.filter-group input[type="date"]:focus {
+    outline: none;
+    border-color: #2a9df4;
+    background: #ffffff;
+}
+
+.filter-toggle-switch {
+    display: flex;
+    align-items: center;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.filter-toggle-switch button {
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-toggle-switch button.active {
+    background: #ffffff;
+    color: var(--text-main);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Graph Overlay Modal Styles */
+.graph-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.graph-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.graph-modal-content {
+    background: #ffffff;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.graph-modal-overlay.active .graph-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.graph-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.graph-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.graph-modal-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+}
+
+.graph-modal-close:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.graph-modal-body {
+    width: 100%;
+    height: 450px;
+    position: relative;
+}
+
+/* Glassmorphic touch for the modal */
+.graph-modal-content {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Analytics Specific Selection Styling */
+#btnPickPatient {
+    background: #ffffff;
+    color: #1a6b35;
+    border: 1.5px solid #1a6b35;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(39, 102, 186, 0.08);
+}
+
+#btnPickPatient:hover {
+    background: #1a6b35;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 107, 53, 0.2);
+}
+
+/* Pagination Buttons Style */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.pagination-btn {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #475569;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-btn:hover:not([disabled]) {
+    background: #f8fafc;
+    border-color: #1a6b35;
+    color: #1a6b35;
+    transform: translateY(-1px);
+}
+
+.pagination-btn.active {
+    background: #1a6b35;
+    color: #ffffff;
+    border-color: #1a6b35;
+    box-shadow: 0 4px 10px rgba(26, 107, 53, 0.3);
+}
+
+.pagination-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f1f5f9;
+}
+
+.pagination-dots {
+    color: #94a3b8;
+    font-weight: 700;
+    padding: 0 4px;
+}

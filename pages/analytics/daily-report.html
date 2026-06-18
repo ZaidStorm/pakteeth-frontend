@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Closing Report | PakTeeth</title>
+    <link rel="icon" type="image/png" href="../../assets/images/tooth.png">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/daily-report.css">
+    <link rel="stylesheet" href="../../css/loader/global-loader.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body class="has-loader">
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="loader-center-content">
+                <div class="loader-icon-small"><img src="../../assets/icons/128x128.png"
+                        style="width: 48px; height: 48px;" alt="PakTeeth Logo"></div>
+                <div class="loader-progress-number" id="loader-pct">0%</div>
+            </div>
+            <div class="loader-spinner-wrap">
+                <div class="sc-loader-ring" id="loader-ring"></div>
+            </div>
+            <div class="loader-text">PakTeeth</div>
+            <div class="loader-subtext">Loading Report...</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Navigation will be injected by core.js / fix_nav.py but let's include static skeleton -->
+        <nav class="top-nav" id="appTopNav">
+            <a href="../dashboard/dashboard.html" class="nav-brand">
+                <img src="../../assets/icons/1024x1024.png" style="width: 24px; height: 24px; margin-right: 8px;"
+                    alt="PakTeeth Logo">PakTeeth
+            </a>
+
+            <div class="nav-menu">
+                <a href="../dashboard/dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="../patients/patient-dashboard.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Patients
+                </a>
+                <a href="../appointments/appointments.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    Appointments
+                    <span class="nav-badge" id="appt-badge"></span>
+                </a>
+                <a href="../doctors/doctors.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Staff
+                </a>
+                <a href="../settings/settings.html" class="nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-content">
+                        <a href="../analytics/analytics.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Analytics
+                        </a>
+                        <a href="../analytics/daily-report.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                                <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            Daily Report
+                        </a>
+                        <a href="../capital/capital-summary.html" class="nav-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                            Capital
+                        </a>
+                        <a href="#" class="nav-item logout-item" onclick="APP.logout(); return false;" title="Logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" x2="9" y1="12" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="page-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="header-title">
+                    <h2>Daily Closing Report</h2>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">View appointments, collections, and pending
+                        balances.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="window.print()"><i class="fas fa-print"></i>
+                        Print</button>
+                    <button class="btn btn-primary" onclick="exportToCSV()"><i class="fas fa-download"></i> Export
+                        CSV</button>
+                </div>
+            </header>
+
+            <section class="page-content">
+                <!-- Filters -->
+                <div class="filter-card">
+                    <div class="form-row" style="align-items: flex-end;">
+                        <div class="form-group" style="flex:1;">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" id="filterStartDate" class="form-control">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label class="form-label">End Date</label>
+                            <input type="date" id="filterEndDate" class="form-control">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label class="form-label">Doctor</label>
+                            <select id="filterDoctor" class="form-control">
+                                <option value="all">All Doctors</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex:0.5;">
+                            <button class="btn btn-primary" style="width:100%; height:42px;"
+                                onclick="loadReport()">Generate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI Summary -->
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background:#e0f2fe; border-left:4px solid #0ea5e9;">
+                        <div class="kpi-title" style="color:#0ea5e9;">New Patients</div>
+                        <div class="kpi-value" id="kpi-new-patients">0</div>
+                    </div>
+                    <div class="kpi-card" style="background:#f3e8ff; border-left:4px solid #a855f7;">
+                        <div class="kpi-title" style="color:#a855f7;">Appointments</div>
+                        <div class="kpi-value" id="kpi-appointments">0</div>
+                    </div>
+                    <div class="kpi-card" style="background:#dcfce7; border-left:4px solid #22c55e;">
+                        <div class="kpi-title" style="color:#22c55e;">Total Paid</div>
+                        <div class="kpi-value" id="kpi-paid">Rs 0</div>
+                    </div>
+                    <div class="kpi-card" style="background:#fef9c3; border-left:4px solid #eab308;">
+                        <div class="kpi-title" style="color:#eab308;">Pending Balance</div>
+                        <div class="kpi-value" id="kpi-pending">Rs 0</div>
+                    </div>
+                    <div class="kpi-card" style="background:#ffe4e6; border-left:4px solid #f43f5e;">
+                        <div class="kpi-title" style="color:#f43f5e;">Discounts</div>
+                        <div class="kpi-value" id="kpi-discount">Rs 0</div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-card"
+                    style="background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05); padding:20px; margin-top:20px;">
+                    <div class="table-responsive">
+                        <table id="reportTable" class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Treatment</th>
+                                    <th>Appt Status</th>
+                                    <th style="text-align:right;">Appt Fee</th>
+                                    <th style="text-align:right;">Treatment Fee</th>
+                                    <th style="text-align:right;">Discount</th>
+                                    <th style="text-align:right;">Paid</th>
+                                    <th style="text-align:right;">Pending</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportTableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                            <tfoot style="font-weight:bold; background:#f8fafc;">
+                                <tr>
+                                    <td colspan="5" style="text-align:right;">Totals:</td>
+                                    <td style="text-align:right;" id="totalApptCell">0</td>
+                                    <td style="text-align:right;" id="totalTreatmentCell">0</td>
+                                    <td style="text-align:right;" id="totalDiscountCell">0</td>
+                                    <td style="text-align:right; color:#22c55e;" id="totalPaidCell">0</td>
+                                    <td style="text-align:right; color:#f43f5e;" id="totalPendingCell">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("page-loader");
+            const progressBar = document.getElementById("loader-ring");
+            const progressText = document.getElementById("loader-pct");
+
+            if (!loader || !progressBar || !progressText) return;
+
+            let progress = 0;
+            const interval = setInterval(function () {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + "%";
+                progressText.textContent = progress + "%";
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = "0";
+                        loader.style.visibility = "hidden";
+                        setTimeout(() => { loader.remove(); }, 500);
+                    }, 400);
+                }
+            }, 30);
+        });
+    </script>
+
+    <script src="../../js/core.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/daily-report.js"></script>
+</body>
+
+</html>

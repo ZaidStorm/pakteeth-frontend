@@ -1,0 +1,75 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npmrc
+
+# Build and Packaging
+PakTeeth/
+dist/
+out/
+build/
+*.exe
+*.msi
+*.zip
+*.dmg
+*.app
+*.blockmap
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary/Scratch Files
+test-doc.js
+test_put.js
+test_upload.js
+
+# ── Vercel/GitHub: deploy frontend only ──────────────────────────────────────
+
+# Backend & Desktop
+server/
+electron/
+resources/
+scripts/
+
+# Assets (large media files — icons, videos, images)
+assets/
+
+# Dev-only & misc files
+.claude/
+CLAUDE.md
+1.py
+detect_cameras.py
+view_all_cameras.py
+Moonshot-api.txt
+REACT_BIBLE.md
+react_bible.pdf
+migrate.js
+license.json
+LAN_SYNC_GUIDE.md
+Icon Converter Command.txt
+config/
+docs/
+graphify command.txt
+graphify-out/
+temp_docx_writer/
+temp_pdf_reader/
+tools/
+package-lock.json
